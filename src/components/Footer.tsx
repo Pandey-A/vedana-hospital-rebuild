@@ -1,5 +1,5 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
-
+import vedanshaLogo from "@/assets/V-Logo.webp";
 const Footer = () => {
   const quickLinks = [
     { name: "Home", href: "#home" },
@@ -25,8 +25,8 @@ const Footer = () => {
           {/* About */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-full gradient-hero flex items-center justify-center">
-                <span className="text-2xl font-display font-bold">V</span>
+              <div className="w-12 h-12  flex items-center justify-center">
+                <img src={vedanshaLogo} alt="Vedansha Logo" className="w-8 h-8" />
               </div>
               <div>
                 <h3 className="font-display text-xl font-bold">Vedansha</h3>

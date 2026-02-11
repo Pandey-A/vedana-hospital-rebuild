@@ -6,15 +6,19 @@ import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
+import KnowYourDoctor from "@/components/KnowYourDoctor";
+import YouTubeSection from "@/components/Youtube";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Header />
+      {/* <Header /> */}
       <Hero />
+      <KnowYourDoctor/>
       <Services />
-      <WhyUs />
+      {/* <WhyUs /> */}
       <Testimonials />
+      <YouTubeSection/>
       <ContactForm />
       <Footer />
       <FloatingCTA />

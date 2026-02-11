@@ -1,89 +1,130 @@
-import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+"use client";
+import { FC } from "react";
 
 const testimonials = [
   {
-    name: "Rahul & Priya M.",
-    text: "I can never repay the debt of Dr. Sangeeta Tajpuriya. I had already stopped treatment but she told me not to give up. She has amazing convincing powers! She convinced me to continue with the treatment and I am glad I listened to her. I am forever grateful to her for turning mine and my wife's dream into reality.",
-    rating: 5,
+    name: "Priya & Rajesh Iyer",
+    role: "Happy Parents",
+    text: "After 5 years of trying elsewhere, Dr. Sangeeta's expertise changed everything. We felt heard and cared for. Today, we are finally holding our miracle baby boy.",
+    image: "https://ui-avatars.com/api/?name=Priya+Iyer&background=fdf2f8&color=db2777"
   },
   {
-    name: "Amit & Sunita K.",
-    text: "The kind of care and attention we got from Dr. Sangeeta Tajpuriya, we had never experienced before. Our treatment went on for 3 years. We followed her every suggestion and advice. One thing that I really like about her is that she doesn't give too many medicines, only what is necessary. In 2016 we conceived and this year we have had a beautiful, healthy baby. Dr. Tajpuriya is a Godsend for us.",
-    rating: 5,
+    name: "Sunita & Amit Kasat",
+    role: "New Parents",
+    text: "The personalized attention at Vedansha Hospital is what makes it stand out. Dr. Sangeeta doesn't just treat you as a patient, but like family.",
+    image: "https://ui-avatars.com/api/?name=Sunita+Kasat&background=f0f9ff&color=0284c7"
   },
   {
-    name: "Vikram & Meera S.",
-    text: "After years of trying, we finally found hope at Vedansha Hospital. The entire team was incredibly supportive throughout our IVF journey. Today, we are blessed with twins. The hospital truly makes your hopes and dreams come true.",
-    rating: 5,
+    name: "Meera & Vikram Sharma",
+    role: "Blessed Parents",
+    text: "We had lost all hope until we met the team here. The transparency regarding the IVF process and the constant support was truly incredible.",
+    image: "https://ui-avatars.com/api/?name=Meera+Sharma&background=f5f3ff&color=7c3aed"
+  },
+  {
+    name: "Anjali & Deepak Patil",
+    role: "Grateful Family",
+    text: "Dr. Tajpuriya's confidence gave us the strength to try one last time. We are now blessed with healthy twins. Forever grateful to Vedansha!",
+    image: "https://ui-avatars.com/api/?name=Anjali+Patil&background=ecfdf5&color=059669"
+  },{
+    name: "Priya & Rajesh Iyer",
+    role: "Happy Parents",
+    text: "After 5 years of trying elsewhere, Dr. Sangeeta's expertise changed everything. We felt heard and cared for. Today, we are finally holding our miracle baby boy.",
+    image: "https://ui-avatars.com/api/?name=Priya+Iyer&background=fdf2f8&color=db2777"
+  },
+  {
+    name: "Meera & Vikram Sharma",
+    role: "Blessed Parents",
+    text: "We had lost all hope until we met the team here. The transparency regarding the IVF process and the constant support was truly incredible.",
+    image: "https://ui-avatars.com/api/?name=Meera+Sharma&background=f5f3ff&color=7c3aed"
   },
 ];
 
-const Testimonials = () => {
+const TestimonialsSection: FC = () => {
   return (
-    <section id="testimonials" className="py-20 md:py-28 gradient-subtle">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Success Stories
-          </span>
-          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Stories of <span className="text-gradient">Hope & Joy</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Hear from the families whose dreams we've helped turn into reality.
-          </p>
-        </motion.div>
+    <section className="w-full bg-white py-16 lg:py-32 overflow-hidden">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Side: Static Content */}
+          <div className="max-w-md">
+            
+            <h2 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-6">
+              Making your dreams come true
+            </h2>
+            <p className="text-black-500 text-lg leading-relaxed font-thin">
+              Vedansha Hospital has delivered consistent success and joy for families through personalized and compassionate fertility care.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <Card className="h-full gradient-card border-border/50 hover:shadow-elevated transition-all duration-300">
-                <CardContent className="p-6 md:p-8">
-                  <Quote className="w-10 h-10 text-primary/30 mb-4" />
-                  
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-accent text-accent" />
-                    ))}
-                  </div>
+          {/* Right Side: Responsive Layout */}
+          <div className="relative">
+            {/* MOBILE: Horizontal Scroll */}
+            <div className="flex md:hidden overflow-x-auto gap-4 pb-6 no-scrollbar snap-x snap-mandatory">
+              {testimonials.map((item, idx) => (
+                <div key={idx} className="min-w-[85vw] snap-center">
+                  <TestimonialCard {...item} />
+                </div>
+              ))}
+            </div>
 
-                  <p className="text-foreground/80 leading-relaxed mb-6 italic">
-                    "{testimonial.text}"
-                  </p>
+            {/* DESKTOP: Staggered Masonry with faster float */}
+            <div className="hidden md:flex gap-6 h-[650px] overflow-hidden">
+              {/* Column 1: Faster Animation (4s) */}
+               <div className="flex flex-col gap-6 w-full -mt-12 animate-float-medium">
+                {[...testimonials.slice(2,4), ...testimonials.slice(0, 6)].map((item, idx) => (
+                  <TestimonialCard key={idx} {...item} />
+                ))}
+              </div>
 
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full gradient-hero flex items-center justify-center">
-                      <span className="text-primary-foreground font-semibold text-lg">
-                        {testimonial.name.charAt(0)}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">{testimonial.name}</p>
-                      <p className="text-sm text-muted-foreground">Happy Parents</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+              {/* Column 2: Medium Animation (5.5s) */}
+              <div className="flex flex-col gap-6 w-full -mt-12 animate-float-medium">
+                {[...testimonials.slice(0, 6), ...testimonials.slice(0, 6)].map((item, idx) => (
+                  <TestimonialCard key={idx} {...item} />
+                ))}
+              </div>
+
+              {/* Bottom Fade */}
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+            </div>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes float {
+          0% { transform: translateY(0); }
+          25% { transform: translateY(-15px); }
+          50% { transform: translateY(0); }
+          75% { transform: translateY(15px); }
+          100% { transform: translateY(0); }
+        }
+        /* Increased speeds for a more dynamic feel */
+        .animate-float-fast { animation: float 4s ease-in-out infinite; }
+        .animate-float-medium { animation: float 5.5s ease-in-out infinite; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </section>
   );
 };
 
-export default Testimonials;
+const TestimonialCard = ({ name, role, text, image }: any) => (
+  <div className="bg-[#F8F9FB] rounded-3xl p-8 border border-gray-100 flex flex-col gap-6 h-fit shadow-sm">
+    <div className="flex items-center gap-4">
+      <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" />
+      <div>
+        <h4 className="font-bold text-gray-900 text-sm">{name}</h4>
+        <p className="text-blue-500 text-[10px] font-bold uppercase tracking-wider">{role}</p>
+      </div>
+    </div>
+    <div className="relative">
+      <span className="text-blue-300 text-4xl font-serif absolute -top-4 -left-1 opacity-40">“</span>
+      <p className="text-gray-700 text-[15px] leading-relaxed relative z-10 italic">
+        "{text}"
+      </p>
+    </div>
+  </div>
+);
+
+export default TestimonialsSection;
