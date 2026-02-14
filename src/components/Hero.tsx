@@ -1,181 +1,147 @@
 "use client";
-import { FC, useState, useEffect } from "react";
-import logo from "@/assets/V-Logo.webp";
+import { FC, useRef, useState } from "react";
+import emailjs from '@emailjs/browser';
 
-// Import your images
-import image1 from "@/assets/vedansha-hospital-nagpur-vedansha-2.jpg"
-import image2 from "@/assets/OIP (2).jpg"
-import image3 from "@/assets/vedansha-hospital-nagpur-vedansha-4.jpg"
+// Assets
+import bg1 from "@/assets/vedansha-hospital-nagpur-vedansha-2.jpg"; 
+import babyHero from "@/assets/banner_img.png";
 
 const Hero: FC = () => {
-  const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isHomeActive, setIsHomeActive] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState("");
 
-  // Carousel data with images and corresponding text
-  const slides = [
-    {
-      image: image1,
-      title: "Comfortable & Modern",
-      subtitle: "Recovery Rooms",
-      description: "Experience world-class care in our state-of-the-art facilities designed for your comfort and healing."
-    },
-    {
-      image: image2,
-      title: "Caring for Women, Mothers",
-      subtitle: "and Families",
-      description: "Compassionate IVF care tailored to your journey. Every step, we're with you - every day."
-    },
-    {
-      image: image3,
-      title: "Advanced IVF",
-      subtitle: "Technology",
-      description: "Cutting-edge equipment and expert care ensuring the highest success rates in fertility treatment."
-    }
-  ];
-
-  // Auto-rotate carousel every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [slides.length]);
-
-  // Track whether we're on the home page (pathname '/' or hash '#home' or empty hash)
-  useEffect(() => {
-    const update = () => {
-      const hash = window.location.hash;
-      const path = window.location.pathname;
-      setIsHomeActive(path === '/' || hash === '#home' || hash === '');
-    };
-    update();
-    window.addEventListener('hashchange', update);
-    window.addEventListener('popstate', update);
-    return () => {
-      window.removeEventListener('hashchange', update);
-      window.removeEventListener('popstate', update);
-    };
-  }, []);
-
-  const handleWaitlistSubmit = async (e: React.FormEvent | React.KeyboardEvent | React.MouseEvent) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    
-    setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsSubmitted(true);
-    setIsLoading(false);
+    setStatus("Sending...");
+
+    const templateParams = {
+      from_name: formRef.current?.from_name.value,
+      from_email: formRef.current?.from_email.value,
+      from_phone: formRef.current?.from_phone.value,
+      service_type: formRef.current?.service_type.value,
+      date: new Date().toLocaleString(),
+    };
+
+    emailjs.send(
+      "service_9vp45rs", 
+      "template_8ppt4vd", 
+      templateParams,
+      "vjx9LFYnhaXrb7FFd"
+    )
+    .then(() => {
+      setStatus("Success! Data sent to pandeyashutosh1911@gmail.com");
+      formRef.current?.reset();
+    }, (error) => {
+      setStatus("Failed to send.");
+      console.log("Error:", error);
+    });
   };
 
   return (
-    <>
-      <div className="w-full bg-background">
-        {/* Top navigation */}
-        <header className="container mx-auto flex items-center justify-between py-6">
-          <img src={logo} alt="Vedansha Hospital logo" className="w-12 h-auto" />
-          <nav className="hidden md:flex items-center gap-8 text-foreground/70 font-extralight">
-            <a
-              href="/"
-              className={`transition-colors hover:text-foreground ${isHomeActive ? 'bg-pink-100 text-pink-600 rounded-full px-5 py-3' : ''}`}
-              aria-current={isHomeActive ? 'page' : undefined}
-            >
-              Home
-            </a>
-            <a href="#services" className="transition-colors hover:text-foreground">Services</a>
-            <a href="#why-us" className="transition-colors hover:text-foreground">Why Us</a>
-            <a href="#our-team" className="transition-colors hover:text-foreground">Our Team</a>
-            <a href="#gallery" className="transition-colors hover:text-foreground">Gallery</a>
-            <a href="#success-stories" className="transition-colors hover:text-foreground">Success Stories</a>
-            <a href="#" className="transition-colors hover:text-foreground">Blog</a>
-            <a href="#" className="transition-colors hover:text-foreground">Contact Us</a>
-          </nav>
-          <div className="flex items-center gap-3 font-extralight">
-            <button
-              className="px-5 py-2.5 rounded-full border border-foreground/20 text-foreground bg-transparent transition-colors hover:border-foreground/35"
-              aria-label="Login"
-            >
-              Login
-            </button>
-            <button
-              className="px-5 py-2.5 rounded-full bg-foreground text-background transition-transform hover:scale-[1.02]"
-              aria-label="Sign up"
-            >
-              Sign up
-            </button>
-          </div>
-        </header>
-
-        {/* Hero card with carousel */}
-        <main className="container mx-auto pb-12">
-          <section className="relative overflow-hidden rounded-3xl border border-gray-200 shadow-xl h-[600px] md:h-[700px]">
-            {/* Carousel backgrounds */}
-            {slides.map((slide, index) => (
-              <div
-                key={index}
-                className={`absolute inset-0 transition-opacity duration-1000 ${
-                  index === currentSlide ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <img
-                  src={slide.image}
-                  alt={`Slide ${index + 1}`}
-                  className="absolute w-full h-full object-cover"
-                  loading="eager"
-                />
-                {/* Overlay for better text readability */}
-                <div className="absolute inset-0 bg-black/30" />
-              </div>
-            ))}
-
-            {/* Content overlay */}
-              <div className="relative z-10 px-6 sm:px-10 md:px-16 py-20 md:py-48 text-center h-full flex flex-col justify-center mt-16 md:mt-48">
-              {/* Animated text content */}
-              {slides.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`absolute inset-x-0 px-6 sm:px-10 md:px-16 transition-opacity duration-700 ${
-                    index === currentSlide ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
-                  <h1 className="mx-auto max-w-5xl text-4xl md:text-6xl lg:text-7xl font-extralight tracking-tight text-white drop-shadow-lg">
-                    {slide.title}
-                  </h1>
-                  <h1 className="font-[Montserrat] italic text-4xl md:text-6xl lg:text-7xl font-extralight tracking-tight text-white drop-shadow-lg mt-2">
-                    {slide.subtitle}
-                  </h1>
-                  <p className="mx-auto mt-6 max-w-2xl text-base md:text-lg text-white/95 font-extralight drop-shadow-md">
-                    {slide.description}
-                  </p>
-                </div>
-              ))}
-              
-              {/* Join Waitlist Form - Static */}
-              
-
-              {/* Carousel indicators */}
-              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-                {slides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === currentSlide 
-                        ? 'bg-white w-8' 
-                        : 'bg-white/50 hover:bg-white/70'
-                    }`}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        </main>
+    <section id="hero" className="relative overflow-hidden min-h-[450px] flex items-center  font-serif">
+      
+      {/* 1. SINGLE STATIC BACKGROUND */}
+      <div className="absolute inset-0 z-0">
+        <img src={bg1} alt="Background" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-[#FDE2E4]/80" />
       </div>
-    </>
+
+      {/* 2. MAIN CONTENT */}
+      <div className="container mx-auto px-6 grid lg:grid-cols-12 gap-10 items-center relative z-10 h-full">
+        
+        {/* LEFT SIDE: TEXT & IMAGE */}
+        {/* Changed items-center to items-stretch to allow image to hit bottom */}
+        <div className="lg:col-span-8 flex flex-col md:flex-row items-stretch gap-6">
+          <div className="text-center md:text-left space-y-6 flex-1 py-10">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-[#9B2B4E] leading-tight font-serif">
+              We take dreams & turn them into families
+            </h1>
+            <p className="text-gray-800 text-2xl font-semibold font-serif">
+              IVF center that puts you first
+            </p>
+            
+            {/* Promo Badge */}
+            <div className="inline-block border-2 border-[#9B2B4E] rounded-xl overflow-hidden shadow-lg">
+                <div className="bg-[#9B2B4E] h-4 w-full"></div>
+                <div className="bg-white px-4 py-2 text-[#9B2B4E] font-bold text-sm md:text-base font-serif">
+                  Consultation | IVF Treatment
+                </div>
+            </div>
+            <p className="text-gray-700 font-bold uppercase tracking-wide font-serif">
+              Personalized IVF Treatment Packages
+            </p>
+          </div>
+          
+          {/* self-end pushes the image to the very bottom of the flex container */}
+          <div className="hidden lg:flex flex-1 items-end justify-center">
+            <img 
+              src={babyHero} 
+              alt="Baby" 
+              className="w-80 max-w-sm drop-shadow-2xl block align-bottom mb-[-40px]" 
+            />
+          </div>
+        </div>
+
+        {/* RIGHT SIDE: CONTACT FORM */}
+        <div className="lg:col-span-4 w-full py-10">
+          <div className="bg-white p-8 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100">
+            <h2 className="text-[#9B2B4E] font-black text-2xl mb-6 leading-tight font-serif">
+              BOOK AN APPOINTMENT
+            </h2>
+            
+            <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
+              <select 
+                name="service_type"
+                className="w-full p-4 border border-gray-200 rounded-lg bg-gray-50 text-gray-600 focus:ring-2 focus:ring-[#E97195] outline-none transition-all"
+                required
+              >
+                <option value="">Select Service</option>
+                <option value="IVF Treatment">IVF Treatment</option>
+                <option value="Consultation">General Consultation</option>
+              </select>
+
+              <input 
+                type="text" 
+                name="from_name"
+                placeholder="Your Name" 
+                className="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#E97195] outline-none font-serif"
+                required 
+              />
+
+              <input 
+                type="email" 
+                name="from_email"
+                placeholder="Your Email Address" 
+                className="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#E97195] outline-none font-serif"
+                required 
+              />
+
+              <input 
+                type="tel" 
+                name="from_phone"
+                placeholder="Your Phone Number" 
+                className="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#E97195] outline-none font-serif " 
+                required 
+              />
+
+              <button 
+                type="submit"
+                className="w-full bg-[#46A2C1] text-white py-4 rounded-lg font-black text-lg hover:bg-[#3488A5] transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg"
+              >
+                SEND REQUEST
+              </button>
+
+              {status && (
+                <p className={`text-center font-bold text-sm p-2 rounded-md ${status.includes("Success") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                  {status}
+                </p>
+              )}
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </section>
   );
 };
 

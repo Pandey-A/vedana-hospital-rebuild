@@ -1,4 +1,9 @@
+"use client";
+import { FC, useState } from "react";
 import { motion } from "framer-motion";
+import { Facebook, Twitter, Instagram, Linkedin, ChevronDown } from "lucide-react";
+
+// Service Image Imports
 import img1 from "@/assets/services/PAINLESS-CHILDBIRTH.png";
 import img2 from "@/assets/services/INTRAUTERINE_INSEMINATION.png";
 import img3 from "@/assets/services/Hysteroscopy-1.jpeg";
@@ -9,135 +14,156 @@ import img7 from "@/assets/services/LAPAROSCOPY.png";
 import img8 from "@/assets/services/SONOGRAPHY.jpeg";
 
 const services = [
-  {
-    image: img1,
-    title: "Painless Childbirth",
-    text: `Motherhood is inarguably the most beautiful phase in a woman's life. Epidural anaesthesia allows mothers to have a painless delivery the natural way. It is the most popular method of pain relief during labour.`,
-  },
-  {
-    image: img2,
-    title: "Intrauterine Insemination",
-    text: `Intrauterine insemination is also called artificial insemination. This procedure can be an effective treatment for infertility in women due to causes such as oligospermia, mild to moderate endometriosis and unexplained infertility.`,
-  },
-  {
-    image: img3,
-    title: "Hysteroscopy",
-    text: `Hysteroscopy is a procedure that allows doctors to check a patient's uterus in order to diagnose causes of infertility & abnormal bleeding.`,
-  },
-  {
-    image: img4,
-    title: "Pathology",
-    text: `Pathology helps diagnose disease by examining tissues, organs, bodily fluids and biopsies in order to study and diagnose disease.`,
-  },
-  {
-    image: img5,
-    title: "In-Vitro Fertilisation",
-    text: `IVF is the original 'test-tube' baby technique. It was developed more than 40 years ago for the treatment of women with damaged Fallopian tubes.`,
-  },
-  {
-    image: img6,
-    title: "Intra-cytoplasmic Sperm Injection",
-    text: `Intra-cytoplasmic sperm injection is a type of IVF procedure in which a single sperm is injected directly into an egg.`,
-  },
-  {
-    image: img7,
-    title: "Laparoscopy",
-    text: `Laparoscopic surgery, also called minimally invasive surgery or keyhole surgery, is a modern surgical technique performed through small incisions with the help of a camera.`,
-  },
-  {
-    image: img8,
-    title: "Sonography",
-    text: `Sonography (medical ultrasound) is used to view internal body structures and monitor growth of a child during pregnancy.`,
-  },
+  { image: img1, title: "PAINLESS CHILDBIRTH" },
+  { image: img2, title: "IUI TREATMENT" },
+  { image: img3, title: "HYSTEROSCOPY" },
+  { image: img4, title: "PATHOLOGY" },
+  { image: img5, title: "IVF" },
+  { image: img6, title: "ICSI" },
+  { image: img7, title: "LAPAROSCOPY" },
+  { image: img8, title: "SONOGRAPHY" },
 ];
 
-const Services = () => {
+const ContactFormMinimal: FC = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({ name: "", email: "", phone: "", service: "" });
+    }, 3000);
+  };
+
   return (
-    <section id="services" className="py-20 md:py-28">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
-          className="text-center mb-12"
-        >
-          {/* <p className="text-sm text-muted-foreground">The best reference</p> */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mt-2">
-            OUR <span className="text-pink-600">SERVICES</span>
-          </h2>
-        </motion.div>
+    <section className="w-full bg-[#FDFDFD] py-16 md:py-24 font-sans">
+      <div className="container mx-auto px-6 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left Side - Contact Form (Based on Image) */}
+          <div className="lg:col-span-5 space-y-8">
+            <div>
+              <h2 className="text-4xl md:text-5xl font-serif text-gray-800 mb-2">Contact Us</h2>
+              <p className="text-gray-500 italic">We are here to help you start your journey.</p>
+            </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((s, i) => (
-            <motion.article
-              key={s.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: i * 0.06 }}
-              className="bg-white rounded-lg overflow-hidden  "
-            >
-              <div className="relative">
-                <img src={s.image} alt={s.title} className="w-full h-44 object-cover block border border-black rounded-2xl" />
-                {/* <div className="absolute -bottom-6 left-6 w-12 h-12 rounded-full bg-pink-600 flex items-center justify-center shadow-lg">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="currentColor" aria-hidden>
-                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+            {isSubmitted ? (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-12 text-center bg-white rounded-3xl shadow-sm border">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                </div> */}
-              </div>
+                </div>
+                <h4 className="text-xl font-medium text-gray-900">Request Sent!</h4>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Service Dropdown */}
+                <div className="relative">
+                  <select
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                    className="w-full px-6 py-4 bg-white border border-gray-200 rounded-[20px] text-gray-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-100 shadow-sm transition-all"
+                    required
+                  >
+                    <option value="">Select Service</option>
+                    {services.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
+                  </select>
+                  <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
+                </div>
 
-              <div className="p-6 pt-8">
-                <h3 className="text-sm font-semibold tracking-wide uppercase mb-3">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">{s.text}</p>
-                <button className="bg-white inline-block px-4 py-2 border border-gray-200 text-sm font-medium">READ MORE</button>
-              </div>
-            </motion.article>
-          ))}
+                {/* Name Input */}
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-6 py-4 bg-white border border-gray-200 rounded-[20px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-100 shadow-sm transition-all"
+                  required
+                />
+
+                {/* Email Input */}
+                <input
+                  type="email"
+                  placeholder="Your Email Address"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-6 py-4 bg-white border border-gray-200 rounded-[20px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-100 shadow-sm transition-all"
+                  required
+                />
+
+                {/* Phone Input */}
+                <input
+                  type="tel"
+                  placeholder="Your Phone Number"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full px-6 py-4 bg-white border border-gray-200 rounded-[20px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-100 shadow-sm transition-all"
+                  required
+                />
+
+                {/* Submit Button (Image Style) */}
+                <button
+                  type="submit"
+                  className="w-full py-5 bg-[#66A2C0] text-white font-bold text-xl rounded-[20px] shadow-lg hover:bg-[#558ba5] transition-transform active:scale-95 uppercase tracking-wider"
+                >
+                  Send Request
+                </button>
+              </form>
+            )}
+
+            {/* Social Icons */}
+            <div className="flex gap-4 pt-4 justify-center lg:justify-start">
+              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, idx) => (
+                <a key={idx} href="#" className="p-2 rounded-full border border-gray-200 text-gray-400 hover:text-[#66A2C0] hover:border-[#66A2C0] transition-all">
+                  <Icon size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Side - Services Grid Boxes */}
+          <div className="lg:col-span-7">
+            <div className="text-center lg:text-left mb-8">
+              <h3 className="text-2xl font-bold text-gray-800 uppercase tracking-tight">
+                Our <span className="text-[#C2185B]">Specialties</span>
+              </h3>
+              <div className="w-16 h-1 bg-[#C2185B] mt-2 mx-auto lg:mx-0"></div>
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {services.map((service, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -5 }}
+                  className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center group"
+                >
+                  <div className="w-full aspect-square rounded-xl overflow-hidden mb-3">
+                    <img 
+                      src={service.image} 
+                      alt={service.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <h4 className="text-[10px] font-bold text-gray-700 leading-tight uppercase px-1 pb-2">
+                    {service.title}
+                  </h4>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
   );
 };
 
-export default Services;
-
-<section id="video-section" className="py-20 md:py-28">
-  <div className="container mx-auto px-4 text-center">
-    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
-      Vedansha Hospital – <span className="text-pink-600">Best IVF in Nagpur</span> – Videos and More
-    </h2>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div className="aspect-w-16 aspect-h-9">
-        <iframe
-          src="https://www.youtube.com/embed/PXImrU-yLw0"
-          title="What is IVF?"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        ></iframe>
-      </div>
-      <div className="aspect-w-16 aspect-h-9">
-        <iframe
-          src="https://www.youtube.com/embed/zfxLtBnCfXM"
-          title="Menstruation must know"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        ></iframe>
-      </div>
-      <div className="aspect-w-16 aspect-h-9">
-        <iframe
-          src="https://www.youtube.com/embed/S9t0byU90_s"
-          title="A new story of Hope"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        ></iframe>
-      </div>
-    </div>
-  </div>
-</section>
+export default ContactFormMinimal;

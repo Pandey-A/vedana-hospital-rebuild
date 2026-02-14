@@ -1,107 +1,148 @@
 "use client";
-import { FC } from "react";
+import { FC, useRef, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, Star, CheckCircle2 } from "lucide-react";
 
-const testimonials = [
+const reviews = [
   {
-    name: "Priya & Rajesh Iyer",
-    role: "Happy Parents",
-    text: "After 5 years of trying elsewhere, Dr. Sangeeta's expertise changed everything. We felt heard and cared for. Today, we are finally holding our miracle baby boy.",
-    image: "https://ui-avatars.com/api/?name=Priya+Iyer&background=fdf2f8&color=db2777"
+    name: "sushant shirpurkar",
+    time: "3 weeks ago",
+    text: "Very good hospitality and very kind staff and sisters.. most prefer hospital in Nagpur...",
+    image: "https://ui-avatars.com/api/?name=Sushant+Shirpurkar&background=random",
   },
   {
-    name: "Sunita & Amit Kasat",
-    role: "New Parents",
-    text: "The personalized attention at Vedansha Hospital is what makes it stand out. Dr. Sangeeta doesn't just treat you as a patient, but like family.",
-    image: "https://ui-avatars.com/api/?name=Sunita+Kasat&background=f0f9ff&color=0284c7"
+    name: "Shardul Bankar",
+    time: "1 month ago",
+    text: "We got the best care, nurture, and love from the staff. Everyone was very polite and was always available to assis...",
+    image: "https://ui-avatars.com/api/?name=Shardul+Bankar&background=random",
   },
   {
-    name: "Meera & Vikram Sharma",
-    role: "Blessed Parents",
-    text: "We had lost all hope until we met the team here. The transparency regarding the IVF process and the constant support was truly incredible.",
-    image: "https://ui-avatars.com/api/?name=Meera+Sharma&background=f5f3ff&color=7c3aed"
+    name: "Ranjeet Mishra",
+    time: "2 months ago",
+    text: "Doctor and support staff is very good, I think the size of room comparing to price is small and there was no...",
+    image: "https://ui-avatars.com/api/?name=Ranjeet+Mishra&background=random",
   },
   {
-    name: "Anjali & Deepak Patil",
-    role: "Grateful Family",
-    text: "Dr. Tajpuriya's confidence gave us the strength to try one last time. We are now blessed with healthy twins. Forever grateful to Vedansha!",
-    image: "https://ui-avatars.com/api/?name=Anjali+Patil&background=ecfdf5&color=059669"
-  },{
-    name: "Priya & Rajesh Iyer",
-    role: "Happy Parents",
-    text: "After 5 years of trying elsewhere, Dr. Sangeeta's expertise changed everything. We felt heard and cared for. Today, we are finally holding our miracle baby boy.",
-    image: "https://ui-avatars.com/api/?name=Priya+Iyer&background=fdf2f8&color=db2777"
+    name: "Priya Deshmukh",
+    time: "3 months ago",
+    text: "Dr. Pandey and her team are exceptional. The entire IVF journey was handled with utmost care and professionalism. Highly recommend this hospital!",
+    image: "https://ui-avatars.com/api/?name=Priya+Deshmukh&background=random",
   },
   {
-    name: "Meera & Vikram Sharma",
-    role: "Blessed Parents",
-    text: "We had lost all hope until we met the team here. The transparency regarding the IVF process and the constant support was truly incredible.",
-    image: "https://ui-avatars.com/api/?name=Meera+Sharma&background=f5f3ff&color=7c3aed"
+    name: "Amit Kumar",
+    time: "4 months ago",
+    text: "Outstanding facilities and a very supportive medical team. The treatment was successful and we are now blessed with a healthy baby. Forever grateful!",
+    image: "https://ui-avatars.com/api/?name=Amit+Kumar&background=random",
   },
 ];
 
-const TestimonialsSection: FC = () => {
+const GoogleReviewSection: FC = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const autoScrollInterval = 5000;
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const cardWidth = scrollRef.current.querySelector('div')?.offsetWidth || 0;
+      const gap = 8;
+      const scrollAmount = cardWidth + gap;
+      
+      if (direction === "left") {
+        scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+        setCurrentIndex((prev) => Math.max(0, prev - 1));
+      } else {
+        scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        setCurrentIndex((prev) => Math.min(reviews.length - 1, prev + 1));
+      }
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        const maxScroll = scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+        const currentScroll = scrollRef.current.scrollLeft;
+        
+        if (currentScroll >= maxScroll - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+          setCurrentIndex(0);
+        } else {
+          scroll("right");
+        }
+      }
+    }, autoScrollInterval);
+
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
   return (
-    <section className="w-full bg-white py-16 lg:py-32 overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    // Reverted -mx-20 for desktop (lg), but removed for mobile to prevent cutoff
+    <section className="w-full bg-white lg:-mx-20 font-serif overflow-hidden lg:overflow-visible">
+      <div className="container mx-auto px-4 lg:pr-12 max-w-6xl">
+        {/* Changed to flex-col for mobile, flex-row for desktop */}
+        <div className="flex flex-col lg:flex-row items-center gap-6 relative">
           
-          {/* Left Side: Static Content */}
-          <div className="max-w-md">
-            
-            <h2 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-[1.1] mb-6">
-              Making your dreams come true
-            </h2>
-            <p className="text-black-500 text-lg leading-relaxed font-thin">
-              Vedansha Hospital has delivered consistent success and joy for families through personalized and compassionate fertility care.
+          {/* Summary Score */}
+          <div className="flex flex-col items-center justify-center min-w-[180px] text-center">
+            <h2 className="text-2xl font-black text-black tracking-tight mb-1">EXCELLENT</h2>
+            <div className="flex gap-0.5 mb-1">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={24} fill="#F6BB42" color="#F6BB42" />
+              ))}
+            </div>
+            <p className="text-gray-900 font-bold text-xs mb-3">
+              Based on <span className="underline">130 reviews</span>
             </p>
+            <div className="flex items-center justify-center gap-2">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" 
+                alt="Google" 
+                className="h-6"
+              />
+            </div>
           </div>
 
-          {/* Right Side: Responsive Layout */}
-          <div className="relative">
-            {/* MOBILE: Horizontal Scroll */}
-            <div className="flex md:hidden overflow-x-auto gap-4 pb-6 no-scrollbar snap-x snap-mandatory">
-              {testimonials.map((item, idx) => (
-                <div key={idx} className="min-w-[85vw] snap-center">
-                  <TestimonialCard {...item} />
+          {/* Carousel Wrapper */}
+          <div className="relative flex-1 w-full group">
+            {/* Nav buttons hidden on mobile for better touch experience */}
+            <button 
+              onClick={() => scroll("left")}
+              className="hidden lg:block absolute -left-3 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-gray-300 p-2 rounded-full shadow-md hover:bg-gray-50 transition-all"
+            >
+              <ChevronLeft size={20} className="text-black" />
+            </button>
+            
+            <div 
+              ref={scrollRef}
+              className="flex overflow-x-auto gap-2 no-scrollbar snap-x snap-mandatory pb-2 scroll-smooth"
+            >
+              {reviews.map((item, idx) => (
+                // card: 85% width on mobile, 280px on desktop
+                <div key={idx} className="min-w-[85%] lg:min-w-[280px] lg:max-w-[280px] snap-center lg:snap-start flex-shrink-0">
+                  <ReviewCard {...item} />
                 </div>
               ))}
             </div>
 
-            {/* DESKTOP: Staggered Masonry with faster float */}
-            <div className="hidden md:flex gap-6 h-[650px] overflow-hidden">
-              {/* Column 1: Faster Animation (4s) */}
-               <div className="flex flex-col gap-6 w-full -mt-12 animate-float-medium">
-                {[...testimonials.slice(2,4), ...testimonials.slice(0, 6)].map((item, idx) => (
-                  <TestimonialCard key={idx} {...item} />
-                ))}
-              </div>
+            <button 
+              onClick={() => scroll("right")}
+              className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-gray-300 p-2 rounded-full shadow-md hover:bg-gray-50 transition-all"
+            >
+              <ChevronRight size={20} className="text-black" />
+            </button>
+          </div>
+        </div>
 
-              {/* Column 2: Medium Animation (5.5s) */}
-              <div className="flex flex-col gap-6 w-full -mt-12 animate-float-medium">
-                {[...testimonials.slice(0, 6), ...testimonials.slice(0, 6)].map((item, idx) => (
-                  <TestimonialCard key={idx} {...item} />
-                ))}
-              </div>
-
-              {/* Bottom Fade */}
-              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent pointer-events-none" />
-            </div>
+        {/* Footer Verified Badge */}
+        <div className="flex justify-center lg:justify-end mt-4">
+          {/* Negative margin only on desktop to match your original design */}
+          <div className="bg-[#3A6B52] text-white px-2.5 py-1 lg:-mx-56 rounded-md flex items-center gap-1.5 text-xs font-semibold shadow-sm">
+            <span>Verified by Trustindex</span>
+            <div className="w-3.5 h-3.5 rounded-full border border-white flex items-center justify-center text-[9px]">i</div>
           </div>
         </div>
       </div>
 
       <style>{`
-        @keyframes float {
-          0% { transform: translateY(0); }
-          25% { transform: translateY(-15px); }
-          50% { transform: translateY(0); }
-          75% { transform: translateY(15px); }
-          100% { transform: translateY(0); }
-        }
-        /* Increased speeds for a more dynamic feel */
-        .animate-float-fast { animation: float 4s ease-in-out infinite; }
-        .animate-float-medium { animation: float 5.5s ease-in-out infinite; }
-
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
@@ -109,22 +150,40 @@ const TestimonialsSection: FC = () => {
   );
 };
 
-const TestimonialCard = ({ name, role, text, image }: any) => (
-  <div className="bg-[#F8F9FB] rounded-3xl p-8 border border-gray-100 flex flex-col gap-6 h-fit shadow-sm">
-    <div className="flex items-center gap-4">
-      <img src={image} alt={name} className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" />
-      <div>
-        <h4 className="font-bold text-gray-900 text-sm">{name}</h4>
-        <p className="text-blue-500 text-[10px] font-bold uppercase tracking-wider">{role}</p>
+const ReviewCard = ({ name, time, text, image }: any) => (
+  <div className="bg-[#F3F4F6] rounded-lg p-5 w-full h-full min-h-[200px] flex flex-col border border-transparent hover:border-gray-200 transition-all shadow-sm hover:shadow-md">
+    <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center gap-2.5">
+        <img src={image} alt={name} className="w-9 h-9 rounded-full object-cover" />
+        <div>
+          <h4 className="font-bold text-gray-900 text-sm">{name}</h4>
+          <p className="text-gray-500 text-[11px]">{time}</p>
+        </div>
+      </div>
+      <img 
+        src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png" 
+        alt="G" 
+        className="w-5 h-5"
+      />
+    </div>
+    
+    <div className="flex gap-0.5 mb-2">
+      {[...Array(5)].map((_, i) => (
+        <Star key={i} size={14} fill="#F6BB42" color="#F6BB42" />
+      ))}
+      <div className="ml-1.5 flex items-center">
+        <CheckCircle2 size={12} className="text-blue-500 fill-blue-500 text-white" />
       </div>
     </div>
-    <div className="relative">
-      <span className="text-blue-300 text-4xl font-serif absolute -top-4 -left-1 opacity-40">“</span>
-      <p className="text-gray-700 text-[15px] leading-relaxed relative z-10 italic">
-        "{text}"
-      </p>
-    </div>
+
+    <p className="text-gray-700 text-sm leading-relaxed line-clamp-3">
+      {text}
+    </p>
+    
+    <button className="text-gray-500 text-xs font-bold mt-auto pt-3 text-left hover:text-gray-800">
+      Read more
+    </button>
   </div>
 );
 
-export default TestimonialsSection;
+export default GoogleReviewSection;

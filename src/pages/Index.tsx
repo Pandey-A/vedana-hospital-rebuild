@@ -8,20 +8,21 @@ import Footer from "@/components/Footer";
 import FloatingCTA from "@/components/FloatingCTA";
 import KnowYourDoctor from "@/components/KnowYourDoctor";
 import YouTubeSection from "@/components/Youtube";
+import Navbar from "@/components/Header";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       {/* <Header /> */}
+      <Navbar/>
+      <FloatingCTA/>
       <Hero />
       <KnowYourDoctor/>
-      <Services />
-      {/* <WhyUs /> */}
-      <Testimonials />
+      {/* <Services/> */}
       <YouTubeSection/>
-      <ContactForm />
+      <Testimonials/>
+      <ContactForm/>
       <Footer />
-      <FloatingCTA />
     </div>
   );
 };

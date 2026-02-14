@@ -3,33 +3,43 @@ import { motion } from "framer-motion";
 
 const FloatingCTA = () => {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
       {/* WhatsApp Button */}
       <motion.a
         href="https://wa.me/919168628982?text=Hello, I would like to book an appointment"
         target="_blank"
         rel="noopener noreferrer"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1, type: "spring" }}
-        className="w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg hover:scale-110 transition-transform ring-1 ring-white/20"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.1 }}
+        transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
+        className="w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-[0_10px_25px_-5px_rgba(37,211,102,0.4)] hover:shadow-[0_15px_30px_-5px_rgba(37,211,102,0.6)] transition-all ring-1 ring-white/20 relative group"
         aria-label="Chat on WhatsApp"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" className="w-6 h-6" fill="currentColor" aria-hidden>
-          <path d="M16.001 3C9.383 3 4 8.383 4 15c0 2.637.837 5.08 2.268 7.092L4 29l6.106-2.468A11.94 11.94 0 0016 27c6.617 0 12-5.383 12-12S22.618 3 16.001 3zm6.73 17.042c-.233.65-1.38 1.243-1.996 1.33-.534.078-1.177.11-2.114-.097-2.273-.487-3.97-1.853-6.351-4.235-2.381-2.381-3.749-4.077-4.235-6.35-.207-.939-.175-1.58-.097-2.114.087-.617.68-1.763 1.33-1.996.623-.224 1.16-.317 1.776-.317.53 0 .876.012 1.26.017.36.004.735.01 1.3-.112.478-.111.78-.143 1.085-.026.284.111.973.36 1.11.393.13.025.236.038.383.038.155 0 .325-.013.54-.025.36-.02.853-.048 1.325.028.534.086 1.264.349 1.825.87.56.523.9 1.155 1.05 1.71.145.53.165 1.033.098 1.392-.052.252-.198.6-.37.956-.264.537-.55 1.116-.56 1.2-.023.163.09.33.246.37.242.06.55.172.916.372.53.29 1.507.824 1.773 1.264.25.415.25.91.178 1.09z" />
+        {/* Subtle Pulse Animation Layer */}
+        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20 group-hover:hidden"></span>
+        
+        {/* Official WhatsApp SVG Path */}
+        <svg 
+          viewBox="0 0 24 24" 
+          className="w-8 h-8 fill-current" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
         </svg>
       </motion.a>
 
       {/* Call Button */}
       <motion.a
         href="tel:+919168628982"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1.2, type: "spring" }}
-        className="w-14 h-14 rounded-full gradient-hero text-primary-foreground flex items-center justify-center shadow-elevated hover:scale-110 transition-transform animate-pulse-soft"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.1 }}
+        transition={{ delay: 1.2, type: "spring", stiffness: 260, damping: 20 }}
+        className="w-14 h-14 rounded-full bg-[#E97195] text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all ring-1 ring-white/20"
         aria-label="Call us"
       >
-        <Phone className="w-7 h-7" />
+        <Phone className="w-7 h-7" fill="currentColor" />
       </motion.a>
     </div>
   );

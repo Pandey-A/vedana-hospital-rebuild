@@ -1,103 +1,122 @@
 "use client";
-import { FC } from "react";
+import { FC, useRef, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const YouTubeSection: FC = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
   const videos = [
-    {
-      id: "PXImrU-yLw0",
-      url: "https://youtu.be/PXImrU-yLw0",
-      title: "Patient Success Story",
-      thumbnail: `https://img.youtube.com/vi/PXImrU-yLw0/maxresdefault.jpg`
-    },
-    {
-      id: "zfxLtBnCfXM",
-      url: "https://youtu.be/zfxLtBnCfXM",
-      title: "IVF Journey Testimonial",
-      thumbnail: `https://img.youtube.com/vi/zfxLtBnCfXM/maxresdefault.jpg`
-    },
-    {
-      id: "S9t0byU90_s",
-      url: "https://youtu.be/S9t0byU90_s",
-      title: "Happy Family Story",
-      thumbnail: `https://img.youtube.com/vi/S9t0byU90_s/maxresdefault.jpg`
-    }
+    { id: "KR-ly-JLTLk", title: "Success Story 1" },
+    { id: "8kGib39-6zc", title: "Success Story 2" },
+    { id: "TNoVzZmg2cs", title: "Success Story 3" },
+    { id: "GeCqAViATog", title: "Success Story 4" },
+    { id: "qXhGuOvrDDs", title: "Success Story 5" },
+    { id: "wHaTJHyVK1Q", title: "Success Story 6" },
   ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (scrollRef.current && !isHovered) {
+        const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          scroll("right");
+        }
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isHovered]);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const cardWidth = 320; // Adjusted for gap
+      const scrollAmount = direction === "left" ? -cardWidth : cardWidth;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="w-full bg-gradient-to-b from-white to-gray-50 py-16 md:py-24">
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
-            Patient Success Stories
+    <section className="w-full bg-white py-12 md:py-16 font-sans overflow-hidden">
+      <div className="container mx-auto px-4 max-w-7xl">
+        
+        {/* Centered Header Section */}
+        <div className="flex flex-col items-center text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-bold text-[#c44ea8] mb-2 border-b-2 border-red-500">
+            Our Successful Stories
           </h2>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Hear directly from our patients about their journey to parenthood
+          <h3 className="text-xl md:text-2xl font-semibold text-[#D0A2BD]">
+            1,000+ Happy Families Created
+          </h3>
+          <p className="text-black text-sm md:text-base  max-w-2xl">
+            Real stories of hope and happiness from our patients.
           </p>
-          <div className="w-24 h-1 bg-red-600 mx-auto mt-6"></div>
         </div>
 
-        {/* Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {videos.map((video, index) => (
-            <div
-              key={video.id}
-              className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
-            >
-              {/* Video Thumbnail/Embed Container */}
-              <div className="relative aspect-video bg-gray-200">
-                {/* YouTube Embed */}
-                <iframe
-                  src={`https://www.youtube.com/embed/${video.id}`}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                  loading="lazy"
-                ></iframe>
-              </div>
-
-              {/* Video Info */}
-              <div className="p-5">
-                <h3 className="font-semibold text-gray-800 text-lg mb-2 group-hover:text-red-600 transition-colors">
-                  {video.title}
-                </h3>
-                <a
-                  href={video.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-sm text-red-600 hover:text-red-700 font-medium"
-                >
-                  Watch on YouTube
-                  <svg
-                    className="w-4 h-4 ml-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA Section */}
-        <div className="text-center mt-12 md:mt-16">
-          <p className="text-gray-700 text-lg mb-6">
-            Ready to start your own success story?
-          </p>
-          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105">
-            Book Your Consultation Today
+        {/* Carousel Container with Side Arrows */}
+        <div className="relative group">
+          
+          {/* Left Arrow */}
+          <button 
+            onClick={() => scroll("left")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 z-10 p-3 bg-white/90 shadow-xl rounded-full text-[#5C214E] hover:bg-[#5C214E] hover:text-white transition-all backdrop-blur-sm border border-gray-100 hidden md:block"
+            aria-label="Scroll Left"
+          >
+            <ChevronLeft size={28} />
           </button>
+
+          {/* Right Arrow */}
+          <button 
+            onClick={() => scroll("right")}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 z-10 p-3 bg-white/90 shadow-xl rounded-full text-[#5C214E] hover:bg-[#5C214E] hover:text-white transition-all backdrop-blur-sm border border-gray-100 hidden md:block"
+            aria-label="Scroll Right"
+          >
+            <ChevronRight size={28} />
+          </button>
+
+          {/* Video Scroll Area */}
+          <div 
+            ref={scrollRef}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="flex overflow-x-auto gap-5 md:gap-8 no-scrollbar snap-x snap-mandatory pb-8 px-2"
+          >
+            {videos.map((video, index) => (
+              <div
+                key={index}
+                className="min-w-[280px] md:min-w-[320px] flex-shrink-0 snap-center"
+              >
+                <div className="relative aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border border-gray-100 transition-transform duration-500 hover:scale-[1.03]">
+                  {/* YouTube Shorts Embed */}
+                  <iframe
+                    src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1&controls=1`}
+                    title={video.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full object-cover"
+                    loading="lazy"
+                  ></iframe>
+
+                  {/* Info Bar Overlay */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#5C214E] to-transparent pt-12 pb-6 px-4 text-white text-xs md:text-sm font-medium flex justify-center gap-2 items-center">
+                    <span className="tracking-wide">Success Story</span>
+                    <span className="opacity-50">|</span>
+                    <span>Healthy Baby</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Custom Styles for hidden scrollbar */}
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </section>
   );
 };

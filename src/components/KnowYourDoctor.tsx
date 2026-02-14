@@ -3,61 +3,83 @@ import { FC } from "react";
 import doctor from "@/assets/vedansha_main-removebg-preview.png";
 
 const KnowYourDoctor: FC = () => {
+  // Function for smooth scrolling
+  const scrollToHero = () => {
+    const heroSection = document.getElementById("hero");
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Fallback: scroll to top of page where hero section is
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="w-screen overflow-hidden">
-      <div className="relative w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[500px] md:min-h-[600px] lg:min-h-[700px]">
-          {/* Left Content Side - Text */}
-          <div className="relative flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 xl:px-28 py-12 md:py-16 lg:py-20 ">
-            {/* Subtle background pattern overlay */}
-            {/* <div className="absolute inset-0 opacity-[0.03]">
-              <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-gray-400 blur-3xl"></div>
-              <div className="absolute bottom-20 right-10 w-48 h-48 rounded-full bg-gray-300 blur-3xl"></div>
-            </div> */}
-
-            <div className="relative z-10">
-              {/* Small header */}
-              <h3 className="text-gray-600 text-base md:text-lg font-normal mb-2">
-                Dr. Sangeeta Tajpuriya
-              </h3>
-              
-              {/* Red underline */}
-              <div className="w-14 h-[3px] bg-red-600 mb-6"></div>
-              
-              {/* Main heading - KNOW YOUR DOCTOR */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-red-600 leading-[1.1] mb-8 tracking-tight">
-                KNOW YOUR DOCTOR
-              </h1>
-              
-              {/* Description paragraph */}
-              <p className="text-black font-light sm:text-base md:text-lg leading-relaxed max-w-xl mb-8">
-                Dr. Sangeeta Tajpuriya is one of the leading gynaecologists in
-                Nagpur city. Over the past few years, she has established herself as
-                one of the most sought after doctors with a loyal clientele base. As a
-                dedicated, efficient, and compassionate practitioner, her patients'
-                well-being and comfort are of top priority to her.
-              </p>
-
-              {/* Green CTA button (visible in screenshot bottom left) */}
-              {/* <button className="bg-green-600 hover:bg-green-700 text-white font-semibold text-sm md:text-base px-6 md:px-8 py-3 md:py-4 rounded-md transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-                Learn More
-              </button> */}
-            </div>
-          </div>
-
-          {/* Right Image Side - Doctor Photo */}
-          <div className="relative">
-            {/* Main doctor image */}
-            <div className="">
+    <section className="w-full bg-[#FFF5F7] py-8 md:py-12 overflow-hidden font-sans">
+      <div className="container mx-auto px-4 max-w-5xl">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+          
+          {/* Left Side - Image Container */}
+          <div className="relative w-full lg:w-[45%]">
+            <div className="relative rounded-xl overflow-hidden shadow-lg bg-white">
               <img
                 src={doctor}
-                alt="Dr. Sangeeta Tajpuriya - Leading Gynaecologist and IVF Specialist in Nagpur"
-                className="w-screen h-full object-cover object-center rounded-b-xl"
+                alt="Dr. Sangeeta Tajpuriya"
+                className="w-full h-auto object-cover block"
               />
+              
+              <div className="absolute bottom-0 left-0 right-0 bg-[#F4A7B9]/90 py-2 px-3 text-center">
+                <h4 className="text-[#5C214E] font-bold text-base md:text-lg uppercase tracking-wide">
+                  Dr. Sangeeta Tajpuriya
+                </h4>
+                <p className="text-[#5C214E] text-[10px] md:text-[11px] font-medium uppercase leading-tight">
+                  MBBS, MD Gyanecologist <br className="hidden md:block" /> Infertility Specialist and IVF Expert
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Content */}
+          <div className="w-full lg:w-[55%] -mt-24">
+            <div className="border-l-[3px] border-orange-500 pl-4 mb-5">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#5C214E] leading-tight">
+                A Message from Our <br /> Infertility Specialist
+              </h2>
             </div>
 
-            
+            <ul className="space-y-4 mb-8">
+              <li className="flex gap-3 items-start">
+                <span className="text-orange-500 font-bold">•</span>
+                <p className="text-gray-700 text-sm md:text-base leading-snug">
+                  Our fertility experts follow globally accepted IVF protocols to deliver 
+                  personalised and ethical fertility care.
+                </p>
+              </li>
+              <li className="flex gap-3 items-start">
+                <span className="text-orange-500 font-bold">•</span>
+                <p className="text-gray-700 text-sm md:text-base leading-snug">
+                  At our clinic, every patient is treated through a structured, 
+                  science-driven IVF process led by experienced fertility specialists.
+                </p>
+              </li>
+              <li className="flex gap-3 items-start">
+                <span className="text-orange-500 font-bold">•</span>
+                <p className="text-gray-700 text-sm md:text-base leading-snug">
+                  This message represents the medical standards and care philosophy 
+                  followed by our doctors across all locations.
+                </p>
+              </li>
+            </ul>
+
+            {/* Appointment Button */}
+            <button 
+              onClick={scrollToHero}
+              className="bg-[#be59a7] hover:bg-[#4a1a3f] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm md:text-base uppercase tracking-wider"
+            >
+              Book Your Appointment Now
+            </button>
           </div>
+
         </div>
       </div>
     </section>
