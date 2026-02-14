@@ -2,6 +2,8 @@
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
 import { Facebook, Twitter, Instagram, Linkedin, ChevronDown } from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { useNavigate } from "react-router-dom";
 
 // Service Image Imports
 import img1 from "@/assets/services/PAINLESS-CHILDBIRTH.png";
@@ -24,6 +26,8 @@ const services = [
   { image: img8, title: "SONOGRAPHY" },
 ];
 
+const DESTINATION_EMAIL = "vedanshahospitalnagpur@gmail.com";
+
 const ContactFormMinimal: FC = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -32,14 +36,43 @@ const ContactFormMinimal: FC = () => {
     service: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [status, setStatus] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", phone: "", service: "" });
-    }, 3000);
+    setStatus("Sending...");
+
+    const templateParams = {
+      to_email: DESTINATION_EMAIL,
+      from_name: formData.name,
+      from_email: formData.email || "Not provided",
+      from_phone: formData.phone,
+      service_type: formData.service,
+      date: new Date().toLocaleString(),
+    };
+
+    emailjs
+      .send(
+        "service_9vp45rs",
+        "template_8ppt4vd",
+        templateParams,
+        "vjx9LFYnhaXrb7FFd"
+      )
+      .then(() => {
+        setStatus("Request sent successfully.");
+        setIsSubmitted(true);
+        navigate("/thank-you");
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: "", email: "", phone: "", service: "" });
+          setStatus("");
+        }, 3000);
+      })
+      .catch((error) => {
+        setStatus("Failed to send.");
+        console.error("EmailJS Error:", error);
+      });
   };
 
   return (
@@ -74,7 +107,9 @@ const ContactFormMinimal: FC = () => {
                     required
                   >
                     <option value="">Select Service</option>
-                    {services.map(s => <option key={s.title} value={s.title}>{s.title}</option>)}
+                    <option value="IVF Treatment">IVF Treatment</option>
+                    <option value="General Consultation">General Consultation</option>
+                    <option value="Gynaecologist">Gynaecologist</option>
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
                 </div>
@@ -90,11 +125,10 @@ const ContactFormMinimal: FC = () => {
 
                 <input
                   type="email"
-                  placeholder="Your Email Address"
+                  placeholder="Your Email Address (Optional)"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-[18px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-50 shadow-sm text-sm"
-                  required
                 />
 
                 <input
@@ -112,6 +146,12 @@ const ContactFormMinimal: FC = () => {
                 >
                   Send Request
                 </button>
+
+                {status && (
+                  <p className={`text-center font-bold text-sm p-2 rounded-md ${status.includes("successfully") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                    {status}
+                  </p>
+                )}
               </form>
             )}
 

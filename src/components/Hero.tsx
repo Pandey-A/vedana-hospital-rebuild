@@ -7,7 +7,7 @@ import emailjs from '@emailjs/browser';
 import bg1 from "@/assets/vedansha-hospital-nagpur-vedansha-2.jpg"; 
 import babyHero from "@/assets/banner_img.png";
 
-const DESTINATION_EMAIL = "pandeyashutosh1911@gmail.com";
+const DESTINATION_EMAIL = "vedanshahospitalnagpur@gmail.com";
 
 const Hero: FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
