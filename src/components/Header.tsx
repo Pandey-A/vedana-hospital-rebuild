@@ -6,7 +6,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
-import logo from '@/assets/V-Logo.webp';
+import logo from '@/assets/Logo-New.png';
 
 const Navbar: React.FC = () => {
   const [language, setLanguage] = useState('English');

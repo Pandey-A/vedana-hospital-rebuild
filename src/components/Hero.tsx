@@ -1,41 +1,56 @@
 "use client";
 import { FC, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 
 // Assets
 import bg1 from "@/assets/vedansha-hospital-nagpur-vedansha-2.jpg"; 
 import babyHero from "@/assets/banner_img.png";
 
+const DESTINATION_EMAIL = "pandeyashutosh1911@gmail.com";
+
 const Hero: FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState("");
+  const navigate = useNavigate();
 
   const sendEmail = (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus("Sending...");
+  e.preventDefault();
+  if (!formRef.current) return; // Safety check
 
-    const templateParams = {
-      from_name: formRef.current?.from_name.value,
-      from_email: formRef.current?.from_email.value,
-      from_phone: formRef.current?.from_phone.value,
-      service_type: formRef.current?.service_type.value,
-      date: new Date().toLocaleString(),
-    };
+  setStatus("Sending...");
 
-    emailjs.send(
-      "service_9vp45rs", 
-      "template_8ppt4vd", 
+  // Explicitly getting values from the form elements
+  const formData = new FormData(formRef.current);
+
+  const templateParams = {
+    to_email: DESTINATION_EMAIL,
+    from_name: formData.get("from_name"),
+    from_email: formData.get("from_email") || "Not provided",
+    from_phone: formData.get("from_phone"),
+    service_type: formData.get("service_type"),
+    date: new Date().toLocaleString(),
+  };
+
+  console.log("Sending these params:", templateParams); // Debugging: Check console to see if data is empty
+
+  emailjs
+    .send(
+      "service_9vp45rs",
+      "template_8ppt4vd",
       templateParams,
       "vjx9LFYnhaXrb7FFd"
     )
     .then(() => {
-      setStatus("Success! Data sent to pandeyashutosh1911@gmail.com");
+      setStatus("Request sent successfully.");
       formRef.current?.reset();
-    }, (error) => {
+      navigate("/thank-you");
+    })
+    .catch((error) => {
       setStatus("Failed to send.");
-      console.log("Error:", error);
+      console.error("EmailJS Error:", error);
     });
-  };
+};
 
   return (
     <section id="hero" className="relative overflow-hidden min-h-[450px] flex items-center  font-serif">
@@ -98,6 +113,7 @@ const Hero: FC = () => {
                 <option value="">Select Service</option>
                 <option value="IVF Treatment">IVF Treatment</option>
                 <option value="Consultation">General Consultation</option>
+                <option value="Gynaecologist">Gynaecologist</option>
               </select>
 
               <input 
@@ -111,9 +127,8 @@ const Hero: FC = () => {
               <input 
                 type="email" 
                 name="from_email"
-                placeholder="Your Email Address" 
+                placeholder="Your Email Address (Optional)" 
                 className="w-full p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#E97195] outline-none font-serif"
-                required 
               />
 
               <input 
@@ -128,7 +143,7 @@ const Hero: FC = () => {
                 type="submit"
                 className="w-full bg-[#46A2C1] text-white py-4 rounded-lg font-black text-lg hover:bg-[#3488A5] transition-all transform hover:scale-[1.02] active:scale-95 shadow-lg"
               >
-                SEND REQUEST
+                REQUEST CALLBACK
               </button>
 
               {status && (

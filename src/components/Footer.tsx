@@ -1,7 +1,7 @@
 "use client";
 import { FC } from "react";
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
-import vedanshaLogo from "@/assets/V-Logo.webp";
+import vedanshaLogo from "@/assets/Logo-New.png";
 
 const Footer: FC = () => {
   const quickLinks = [
