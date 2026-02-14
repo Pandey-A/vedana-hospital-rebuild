@@ -43,10 +43,9 @@ const Navbar: React.FC = () => {
           <SocialIconSvg name="instagram" href="https://www.instagram.com/VedanshaHospital" />
           <SocialIconSvg name="youtube" href="https://www.youtube.com/channel/UCmEbG7AKy3BTDej328gAshQ" />
           <SocialIconSvg name="facebook" href="https://www.facebook.com/VedanshaHospital/" />
-          <SocialIconSvg name="linkedin" href="https://www.linkedin.com/company/vedansha-hospital/" />
           <SocialIconSvg name="google" href="#" />
         </div>
-        <div className="flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-3">
             {/* Using deep blue for the pin as seen in the image */}
             <div className="bg-white p-2.5 rounded-full shadow-md">
               <MapPin size={28} className="text-[#D15B8F]" fill="none" strokeWidth={2.5} />
@@ -86,12 +85,16 @@ const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           
           {/* Logo Section */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 flex items-center gap-2 md:gap-3">
             <img 
               src={logo}
               alt="Vedansha Hospital Logo" 
-              className="h-12 md:h-20 w-auto object-contain"
+              className="h-10 md:h-16 w-auto object-contain"
             />
+            <div className="flex flex-col">
+              <h1 className="text-sm md:text-xl font-bold text-gray-800 leading-tight">Vedansha Hospital</h1>
+              {/* <p className="sm:text-xs md:text- text-gray-600">Hospital</p> */}
+            </div>
           </div>
 
           {/* Navigation Links (Desktop) */}
@@ -194,6 +197,8 @@ const SocialIconSvg = ({ name, href }: { name: string; href: string }) => {
       </svg>
     ),
   };
+
+  if (name === "linkedin") return null;
 
   return (
     <a 
