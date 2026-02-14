@@ -12,11 +12,13 @@ export default {
         "2xl": "1400px",
       },
     },
+    fontFamily: {
+      sans: ['"Product Sans"', 'sans-serif'],
+      serif: ['"Product Sans"', 'sans-serif'],
+      display: ['"Product Sans"', 'sans-serif'],
+      body: ['"Product Sans"', 'sans-serif'],
+    },
     extend: {
-      fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        body: ['Inter', 'sans-serif'],
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
