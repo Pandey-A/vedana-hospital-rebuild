@@ -41,12 +41,13 @@ export const translations: Record<Language, TranslationDictionary> = {
     "hero.status.success": "Request sent successfully.",
     "hero.status.failed": "Failed to send.",
 
-    "doctor.messageTitle": "A Message from Our Infertility Specialist",
-    "doctor.bullet1": "Our fertility experts follow globally accepted IVF protocols to deliver personalised and ethical fertility care.",
-    "doctor.bullet2": "At our clinic, every patient is treated through a structured, science-driven IVF process led by experienced fertility specialists.",
-    "doctor.bullet3": "This message represents the medical standards and care philosophy followed by our doctors across all locations.",
+    "doctor.messageTitle": "A Message from Dr. Sangeeta Tajpuriya",
+    "doctor.designationLine": "Infertility Specialist, Vedansha Hospital, Nagpur",
+    "doctor.bullet1": "At Vedansha Hospital, our IVF treatments are guided by globally accepted medical protocols and evidence-based fertility practices. Every couple receives personalised care based on a thorough evaluation and a structured, science-driven approach.",
+    "doctor.bullet2": "We believe fertility treatment must be ethical, transparent, and patient-focused. Our goal is not just achieving pregnancy, but ensuring safe, responsible, and medically sound outcomes at every step.",
+    "doctor.bullet3": "This reflects the commitment and medical standards we uphold for every couple who trusts us with their fertility journey.",
     "doctor.bookNow": "Book Your Appointment Now",
-    "doctor.credential": "MBBS, MD Gynaecologist",
+    "doctor.credential": "MBBS, MD (Gynaecology)",
     "doctor.subCredential": "Infertility Specialist and IVF Expert",
 
     "youtube.title": "IVF SUCCESS STORIES",
@@ -133,11 +134,12 @@ export const translations: Record<Language, TranslationDictionary> = {
     "hero.status.failed": "भेजने में विफल।",
 
     "doctor.messageTitle": "हमारे बांझपन विशेषज्ञ का संदेश",
+    "doctor.designationLine": "Infertility Specialist, Vedansha Hospital, Nagpur",
     "doctor.bullet1": "हमारे फर्टिलिटी विशेषज्ञ व्यक्तिगत और नैतिक फर्टिलिटी केयर के लिए वैश्विक रूप से मान्य आईवीएफ प्रोटोकॉल का पालन करते हैं।",
     "doctor.bullet2": "हमारे क्लिनिक में हर मरीज का उपचार अनुभवी विशेषज्ञों द्वारा संरचित और विज्ञान-आधारित आईवीएफ प्रक्रिया से किया जाता है।",
     "doctor.bullet3": "यह संदेश हमारे सभी केंद्रों में डॉक्टरों द्वारा अपनाए गए चिकित्सीय मानकों और देखभाल दर्शन को दर्शाता है।",
     "doctor.bookNow": "अभी अपॉइंटमेंट बुक करें",
-    "doctor.credential": "एमबीबीएस, एमडी स्त्रीरोग विशेषज्ञ",
+    "doctor.credential": "एमबीबीएस, एमडी (गायनेकोलॉजी)",
     "doctor.subCredential": "बांझपन विशेषज्ञ और आईवीएफ एक्सपर्ट",
 
     "youtube.title": "हमारी सफल कहानियाँ",
@@ -224,11 +226,12 @@ export const translations: Record<Language, TranslationDictionary> = {
     "hero.status.failed": "पाठवण्यात अयशस्वी.",
 
     "doctor.messageTitle": "आमच्या वंध्यत्व तज्ज्ञांचा संदेश",
+    "doctor.designationLine": "Infertility Specialist, Vedansha Hospital, Nagpur",
     "doctor.bullet1": "आमचे फर्टिलिटी तज्ज्ञ वैयक्तिक आणि नैतिक फर्टिलिटी केअरसाठी जागतिक स्तरावर मान्य IVF प्रोटोकॉलचे पालन करतात.",
     "doctor.bullet2": "आमच्या क्लिनिकमध्ये प्रत्येक रुग्णाचा उपचार अनुभवी तज्ज्ञांच्या मार्गदर्शनाखाली संरचित आणि विज्ञानाधारित IVF प्रक्रियेद्वारे केला जातो.",
     "doctor.bullet3": "हा संदेश आमच्या सर्व केंद्रांतील डॉक्टरांनी पाळलेल्या वैद्यकीय मानके आणि काळजीच्या तत्वज्ञानाचे प्रतिनिधित्व करतो.",
     "doctor.bookNow": "आत्ताच अपॉइंटमेंट बुक करा",
-    "doctor.credential": "एमबीबीएस, एमडी स्त्रीरोग तज्ज्ञ",
+    "doctor.credential": "एमबीबीएस, एमडी (गायनेकोलॉजी)",
     "doctor.subCredential": "वंध्यत्व तज्ज्ञ आणि IVF तज्ज्ञ",
 
     "youtube.title": "आमच्या यशोगाथा",

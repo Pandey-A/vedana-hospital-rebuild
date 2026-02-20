@@ -5,6 +5,28 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const KnowYourDoctor: FC = () => {
   const { t } = useLanguage();
+
+  const highlightText = (text: string) => {
+    const parts = text.split(/(Vedansha Hospital|IVF Treatment|IVF treatments|IVF)/gi);
+
+    return parts.map((part, index) => {
+      const normalized = part.toLowerCase();
+      const shouldHighlight =
+        normalized === "vedansha hospital" ||
+        normalized === "ivf treatment" ||
+        normalized === "ivf treatments" ||
+        normalized === "ivf";
+
+      return shouldHighlight ? (
+        <span key={index} className="font-semibold text-[#5C214E]">
+          {part}
+        </span>
+      ) : (
+        <span key={index}>{part}</span>
+      );
+    });
+  };
+
   // Function for smooth scrolling
   const scrollToHero = () => {
     const heroSection = document.getElementById("hero");
@@ -42,41 +64,37 @@ const KnowYourDoctor: FC = () => {
           </div>
 
           {/* Right Side - Content */}
-          <div className="w-full lg:w-[55%] -mt-24">
+          <div className="w-full lg:w-[55%] mt-3 lg:-mt-24 pt-4 md:pt-10">
             <div className="border-l-[3px] border-orange-500 pl-4 mb-5">
               <h2 className="text-2xl md:text-3xl font-bold text-[#5C214E] leading-tight">
                 {t("doctor.messageTitle")}
               </h2>
             </div>
 
-            <ul className="space-y-4 mb-8">
-              <li className="flex gap-3 items-start">
-                <span className="text-orange-500 font-bold">•</span>
-                <p className="text-gray-700 text-sm md:text-base leading-snug">
-                  {t("doctor.bullet1")}
-                </p>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="text-orange-500 font-bold">•</span>
-                <p className="text-gray-700 text-sm md:text-base leading-snug">
-                  {t("doctor.bullet2")}
-                </p>
-              </li>
-              <li className="flex gap-3 items-start">
-                <span className="text-orange-500 font-bold">•</span>
-                <p className="text-gray-700 text-sm md:text-base leading-snug">
-                  {t("doctor.bullet3")}
-                </p>
-              </li>
-            </ul>
+            <div className="space-y-4 mb-8">
+              <p className="text-gray-700 text-sm md:text-base italic">
+                {t("doctor.designationLine")}
+              </p>
+              <p className="text-gray-700 text-sm md:text-base leading-snug">
+                {highlightText(t("doctor.bullet1"))}
+              </p>
+              <p className="text-gray-700 text-sm md:text-base leading-snug">
+                {highlightText(t("doctor.bullet2"))}
+              </p>
+              <p className="text-gray-700 text-sm md:text-base leading-snug">
+                {highlightText(t("doctor.bullet3"))}
+              </p>
+            </div>
 
             {/* Appointment Button */}
-            <button 
-              onClick={scrollToHero}
-              className="bg-[#be59a7] hover:bg-[#4a1a3f] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm md:text-base uppercase tracking-wider"
-            >
-              {t("doctor.bookNow")}
-            </button>
+            <div className="flex justify-center lg:justify-start">
+              <button 
+                onClick={scrollToHero}
+                className="bg-[#be59a7] hover:bg-[#4a1a3f] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm md:text-base uppercase tracking-wider"
+              >
+                {t("doctor.bookNow")}
+              </button>
+            </div>
           </div>
 
         </div>
