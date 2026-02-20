@@ -50,7 +50,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     "doctor.subCredential": "Infertility Specialist and IVF Expert",
 
     "youtube.title": "IVF SUCCESS STORIES",
-    "youtube.subtitle": "1,000+ Happy Families Created at Vedansha Hospital, Nagpur",
+    "youtube.subtitle": " Happy Families Created at Vedansha Hospital, Nagpur",
     "youtube.description": "Real stories of hope and happiness from our patients.",
     "youtube.scrollLeft": "Scroll Left",
     "youtube.scrollRight": "Scroll Right",
@@ -141,7 +141,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     "doctor.subCredential": "बांझपन विशेषज्ञ और आईवीएफ एक्सपर्ट",
 
     "youtube.title": "हमारी सफल कहानियाँ",
-    "youtube.subtitle": "1,000+ खुशहाल परिवार",
+    "youtube.subtitle": " खुशहाल परिवार",
     "youtube.description": "हमारे मरीजों की उम्मीद और खुशी की सच्ची कहानियाँ।",
     "youtube.scrollLeft": "बाएँ स्क्रॉल करें",
     "youtube.scrollRight": "दाएँ स्क्रॉल करें",
@@ -232,7 +232,7 @@ export const translations: Record<Language, TranslationDictionary> = {
     "doctor.subCredential": "वंध्यत्व तज्ज्ञ आणि IVF तज्ज्ञ",
 
     "youtube.title": "आमच्या यशोगाथा",
-    "youtube.subtitle": "1,000+ आनंदी कुटुंबे",
+    "youtube.subtitle": " आनंदी कुटुंबे",
     "youtube.description": "आमच्या रुग्णांच्या आशा आणि आनंदाच्या खऱ्या कथा.",
     "youtube.scrollLeft": "डावीकडे स्क्रोल करा",
     "youtube.scrollRight": "उजवीकडे स्क्रोल करा",
