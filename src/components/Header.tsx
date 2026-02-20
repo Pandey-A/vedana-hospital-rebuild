@@ -93,7 +93,10 @@ const Navbar: React.FC = () => {
               className="h-10 md:h-16 w-auto object-contain"
             />
             <div className="flex flex-col">
-              <h1 className="text-sm md:text-xl font-bold text-gray-800 leading-tight">{t("header.hospitalName")}</h1>
+              <div className="flex flex-col">
+                <span>{t("header.hospitalName")}</span>
+                <span className="text-xs md:text-sm text-[#D15B8F] font-semibold">{t("header.location")}</span>
+              </div>
               {/* <p className="sm:text-xs md:text- text-gray-600">Hospital</p> */}
             </div>
           </div>

@@ -42,7 +42,7 @@ const Footer: FC = () => {
                 />
               </div>
               <div>
-                <h3 className="text-2xl font-bold tracking-tight text-white uppercase">Vedansha</h3>
+                <h3 className="text-2xl font-bold tracking-tight text-white uppercase">{t("footer.brandName")}</h3>
                 <p className="text-[10px] tracking-[0.2em] text-blue-200 uppercase font-semibold">
                     {t("footer.brandSub")}
                 </p>
