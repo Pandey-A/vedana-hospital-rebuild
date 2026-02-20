@@ -1,9 +1,10 @@
 "use client";
 import { FC, useState } from "react";
 import { motion } from "framer-motion";
-import { Facebook, Twitter, Instagram, Linkedin, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Service Image Imports
 import img1 from "@/assets/services/PAINLESS-CHILDBIRTH.png";
@@ -29,6 +30,7 @@ const services = [
 const DESTINATION_EMAIL = "vedanshahospitalnagpur@gmail.com";
 
 const ContactFormMinimal: FC = () => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,11 +39,13 @@ const ContactFormMinimal: FC = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [status, setStatus] = useState("");
+  const [statusType, setStatusType] = useState<"success" | "error" | "">("");
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus("Sending...");
+    setStatus(t("contact.status.sending"));
+    setStatusType("");
 
     const templateParams = {
       to_email: DESTINATION_EMAIL,
@@ -60,7 +64,8 @@ const ContactFormMinimal: FC = () => {
         "vjx9LFYnhaXrb7FFd"
       )
       .then(() => {
-        setStatus("Request sent successfully.");
+        setStatus(t("contact.status.success"));
+        setStatusType("success");
         setIsSubmitted(true);
         navigate("/thank-you");
         setTimeout(() => {
@@ -70,7 +75,8 @@ const ContactFormMinimal: FC = () => {
         }, 3000);
       })
       .catch((error) => {
-        setStatus("Failed to send.");
+        setStatus(t("contact.status.failed"));
+        setStatusType("error");
         console.error("EmailJS Error:", error);
       });
   };
@@ -83,8 +89,8 @@ const ContactFormMinimal: FC = () => {
           {/* Left Side - Compact Contact Form (4 Columns) */}
           <div className="lg:col-span-4 space-y-6">
             <div className="text-left">
-              <h2 className="text-3xl md:text-4xl font-serif text-gray-800 mb-1">Contact Us</h2>
-              <p className="text-gray-400 text-sm italic">Request a consultation today</p>
+              <h2 className="text-3xl md:text-4xl font-serif text-gray-800 mb-1">{t("contact.title")}</h2>
+              <p className="text-gray-400 text-sm italic">{t("contact.subtitle")}</p>
             </div>
 
             {isSubmitted ? (
@@ -94,7 +100,7 @@ const ContactFormMinimal: FC = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h4 className="text-lg font-medium text-gray-900">Request Sent!</h4>
+                <h4 className="text-lg font-medium text-gray-900">{t("contact.requestSent")}</h4>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -106,17 +112,17 @@ const ContactFormMinimal: FC = () => {
                     className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-[18px] text-gray-600 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-50 shadow-sm transition-all text-sm"
                     required
                   >
-                    <option value="">Select Service</option>
-                    <option value="IVF Treatment">IVF Treatment</option>
-                    <option value="General Consultation">General Consultation</option>
-                    <option value="Gynaecologist">Gynaecologist</option>
+                    <option value="">{t("contact.selectService")}</option>
+                    <option value="IVF Treatment">{t("contact.service.ivf")}</option>
+                    <option value="General Consultation">{t("contact.service.consultation")}</option>
+                    <option value="Gynaecologist">{t("contact.service.gynaecologist")}</option>
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
                 </div>
 
                 <input
                   type="text"
-                  placeholder="Your Name"
+                  placeholder={t("contact.input.name")}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-[18px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-50 shadow-sm text-sm"
@@ -125,7 +131,7 @@ const ContactFormMinimal: FC = () => {
 
                 <input
                   type="email"
-                  placeholder="Your Email Address (Optional)"
+                  placeholder={t("contact.input.email")}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-[18px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-50 shadow-sm text-sm"
@@ -133,7 +139,7 @@ const ContactFormMinimal: FC = () => {
 
                 <input
                   type="tel"
-                  placeholder="Your Phone Number"
+                  placeholder={t("contact.input.phone")}
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   className="w-full px-5 py-3.5 bg-white border border-gray-200 rounded-[18px] text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-50 shadow-sm text-sm"
@@ -144,11 +150,11 @@ const ContactFormMinimal: FC = () => {
                   type="submit"
                   className="w-full py-4 bg-[#66A2C0] text-white font-bold text-lg rounded-[18px] shadow-md hover:bg-[#558ba5] transition-all active:scale-[0.98] uppercase tracking-wide"
                 >
-                  Send Request
+                  {t("contact.sendRequest")}
                 </button>
 
                 {status && (
-                  <p className={`text-center font-bold text-sm p-2 rounded-md ${status.includes("successfully") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+                  <p className={`text-center font-bold text-sm p-2 rounded-md ${statusType === "success" ? "bg-green-100 text-green-700" : statusType === "error" ? "bg-red-100 text-red-700" : "bg-blue-100 text-blue-700"}`}>
                     {status}
                   </p>
                 )}
@@ -163,7 +169,7 @@ const ContactFormMinimal: FC = () => {
           <div className="lg:col-span-8">
             <div className="flex items-center gap-4 mb-8">
               <h3 className="text-2xl font-bold text-gray-800 uppercase tracking-tight">
-                Our <span className="text-[#C2185B]">Specialties</span>
+                {t("contact.specialties")}
               </h3>
               <div className="flex-1 h-[1px] bg-black"></div>
             </div>

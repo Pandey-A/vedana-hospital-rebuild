@@ -1,8 +1,10 @@
 "use client";
 import { FC } from "react";
 import doctor from "@/assets/vedansha_main-removebg-preview.png";
+import { useLanguage } from "@/context/LanguageContext";
 
 const KnowYourDoctor: FC = () => {
+  const { t } = useLanguage();
   // Function for smooth scrolling
   const scrollToHero = () => {
     const heroSection = document.getElementById("hero");
@@ -33,7 +35,7 @@ const KnowYourDoctor: FC = () => {
                   Dr. Sangeeta Tajpuriya
                 </h4>
                 <p className="text-[#5C214E] text-[10px] md:text-[11px] font-medium uppercase leading-tight">
-                  MBBS, MD Gyanecologist <br className="hidden md:block" /> Infertility Specialist and IVF Expert
+                  {t("doctor.credential")} <br className="hidden md:block" /> {t("doctor.subCredential")}
                 </p>
               </div>
             </div>
@@ -43,7 +45,7 @@ const KnowYourDoctor: FC = () => {
           <div className="w-full lg:w-[55%] -mt-24">
             <div className="border-l-[3px] border-orange-500 pl-4 mb-5">
               <h2 className="text-2xl md:text-3xl font-bold text-[#5C214E] leading-tight">
-                A Message from Our <br /> Infertility Specialist
+                {t("doctor.messageTitle")}
               </h2>
             </div>
 
@@ -51,22 +53,19 @@ const KnowYourDoctor: FC = () => {
               <li className="flex gap-3 items-start">
                 <span className="text-orange-500 font-bold">•</span>
                 <p className="text-gray-700 text-sm md:text-base leading-snug">
-                  Our fertility experts follow globally accepted IVF protocols to deliver 
-                  personalised and ethical fertility care.
+                  {t("doctor.bullet1")}
                 </p>
               </li>
               <li className="flex gap-3 items-start">
                 <span className="text-orange-500 font-bold">•</span>
                 <p className="text-gray-700 text-sm md:text-base leading-snug">
-                  At our clinic, every patient is treated through a structured, 
-                  science-driven IVF process led by experienced fertility specialists.
+                  {t("doctor.bullet2")}
                 </p>
               </li>
               <li className="flex gap-3 items-start">
                 <span className="text-orange-500 font-bold">•</span>
                 <p className="text-gray-700 text-sm md:text-base leading-snug">
-                  This message represents the medical standards and care philosophy 
-                  followed by our doctors across all locations.
+                  {t("doctor.bullet3")}
                 </p>
               </li>
             </ul>
@@ -76,7 +75,7 @@ const KnowYourDoctor: FC = () => {
               onClick={scrollToHero}
               className="bg-[#be59a7] hover:bg-[#4a1a3f] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm md:text-base uppercase tracking-wider"
             >
-              Book Your Appointment Now
+              {t("doctor.bookNow")}
             </button>
           </div>
 

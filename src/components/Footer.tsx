@@ -2,14 +2,16 @@
 import { FC } from "react";
 import { Phone, Mail, MapPin, Facebook, Instagram, Youtube } from "lucide-react";
 import vedanshaLogo from "@/assets/Logo-New.png";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Footer: FC = () => {
+  const { t } = useLanguage();
   const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Services", href: "#services" },
-    { name: "Why Us", href: "#why-us" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { key: "header.nav.home", href: "#home" },
+    { key: "header.nav.services", href: "#services" },
+    { key: "header.nav.whyUs", href: "#why-us" },
+    { key: "header.nav.successStories", href: "#testimonials" },
+    { key: "header.nav.contactUs", href: "#contact" },
   ];
 
   const services = [
@@ -42,15 +44,13 @@ const Footer: FC = () => {
               <div>
                 <h3 className="text-2xl font-bold tracking-tight text-white uppercase">Vedansha</h3>
                 <p className="text-[10px] tracking-[0.2em] text-blue-200 uppercase font-semibold">
-                  Hospital & Fertility Centre
+                    {t("footer.brandSub")}
                 </p>
               </div>
             </div>
             
             <p className="text-blue-50 text-sm leading-relaxed max-w-sm">
-              Our pioneering work has led to the development of new technologies 
-              to overcome both female and male infertility. Compassionate care and advanced 
-              science under one roof.
+                {t("footer.about")}
             </p>
 
             <div className="flex gap-3">
@@ -69,16 +69,16 @@ const Footer: FC = () => {
           {/* Quick Links */}
           <div className="lg:col-span-2">
             <h4 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">
-              Quick Links
+              {t("footer.quickLinks")}
             </h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.name}>
+                <li key={link.key}>
                   <a
                     href={link.href}
                     className="text-blue-100 hover:text-[#C2185B] transition-colors text-sm"
                   >
-                    {link.name}
+                    {t(link.key)}
                   </a>
                 </li>
               ))}
@@ -88,7 +88,7 @@ const Footer: FC = () => {
           {/* Services */}
           <div className="lg:col-span-2">
             <h4 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">
-              Our Services
+              {t("footer.ourServices")}
             </h4>
             <ul className="space-y-3">
               {services.map((service) => (
@@ -107,7 +107,7 @@ const Footer: FC = () => {
           {/* Contact */}
           <div className="lg:col-span-4">
             <h4 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">
-              Contact Us
+              {t("footer.contactUs")}
             </h4>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
@@ -117,9 +117,9 @@ const Footer: FC = () => {
                 </span>
               </div>
               
-              <a href="tel:+919168628982" className="flex items-center gap-3 group">
+              <a href="tel:9168628982" className="flex items-center gap-3 group">
                 <Phone size={18} className="text-[#C2185B]" />
-                <span className="text-blue-50 text-sm group-hover:text-white transition-colors">+91 91686 28982</span>
+                <span className="text-blue-50 text-sm group-hover:text-white transition-colors">9168628982</span>
               </a>
               
               <a href="mailto:vedanshahospitalnagpur@gmail.com" className="flex items-center gap-3 group">
@@ -137,7 +137,7 @@ const Footer: FC = () => {
       <div className="bg-[#153455] py-4 border-t border-white/5">
         <div className="container mx-auto px-6 text-center">
           <p className="text-blue-300 text-[10px] uppercase tracking-[0.2em]">
-            © {new Date().getFullYear()} Vedansha Hospital. All Rights Reserved.
+            © {new Date().getFullYear()} Vedansha Hospital. {t("footer.copyright")}
           </p>
         </div>
       </div>

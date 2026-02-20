@@ -1,18 +1,20 @@
 "use client";
 import { FC, useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const YouTubeSection: FC = () => {
+  const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   const videos = [
-    { id: "KR-ly-JLTLk", title: "Success Story 1" },
-    { id: "8kGib39-6zc", title: "Success Story 2" },
-    { id: "TNoVzZmg2cs", title: "Success Story 3" },
-    { id: "GeCqAViATog", title: "Success Story 4" },
-    { id: "qXhGuOvrDDs", title: "Success Story 5" },
-    { id: "wHaTJHyVK1Q", title: "Success Story 6" },
+    { id: "KR-ly-JLTLk", title: `${t("youtube.overlay.story")} 1` },
+    { id: "8kGib39-6zc", title: `${t("youtube.overlay.story")} 2` },
+    { id: "TNoVzZmg2cs", title: `${t("youtube.overlay.story")} 3` },
+    { id: "GeCqAViATog", title: `${t("youtube.overlay.story")} 4` },
+    { id: "qXhGuOvrDDs", title: `${t("youtube.overlay.story")} 5` },
+    { id: "wHaTJHyVK1Q", title: `${t("youtube.overlay.story")} 6` },
   ];
 
   useEffect(() => {
@@ -45,13 +47,13 @@ const YouTubeSection: FC = () => {
         {/* Centered Header Section */}
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold text-[#c44ea8] mb-2 border-b-2 border-red-500">
-            Our Successful Stories
+            {t("youtube.title")}
           </h2>
           <h3 className="text-xl md:text-2xl font-semibold text-[#D0A2BD]">
-            1,000+ Happy Families Created
+            {t("youtube.subtitle")}
           </h3>
           <p className="text-black text-sm md:text-base  max-w-2xl">
-            Real stories of hope and happiness from our patients.
+            {t("youtube.description")}
           </p>
         </div>
 
@@ -62,7 +64,7 @@ const YouTubeSection: FC = () => {
           <button 
             onClick={() => scroll("left")}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-6 z-10 p-3 bg-white/90 shadow-xl rounded-full text-[#5C214E] hover:bg-[#5C214E] hover:text-white transition-all backdrop-blur-sm border border-gray-100 hidden md:block"
-            aria-label="Scroll Left"
+            aria-label={t("youtube.scrollLeft")}
           >
             <ChevronLeft size={28} />
           </button>
@@ -71,7 +73,7 @@ const YouTubeSection: FC = () => {
           <button 
             onClick={() => scroll("right")}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-6 z-10 p-3 bg-white/90 shadow-xl rounded-full text-[#5C214E] hover:bg-[#5C214E] hover:text-white transition-all backdrop-blur-sm border border-gray-100 hidden md:block"
-            aria-label="Scroll Right"
+            aria-label={t("youtube.scrollRight")}
           >
             <ChevronRight size={28} />
           </button>
@@ -101,9 +103,9 @@ const YouTubeSection: FC = () => {
 
                   {/* Info Bar Overlay */}
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#5C214E] to-transparent pt-12 pb-6 px-4 text-white text-xs md:text-sm font-medium flex justify-center gap-2 items-center">
-                    <span className="tracking-wide">Success Story</span>
+                    <span className="tracking-wide">{t("youtube.overlay.story")}</span>
                     <span className="opacity-50">|</span>
-                    <span>Healthy Baby</span>
+                    <span>{t("youtube.overlay.baby")}</span>
                   </div>
                 </div>
               </div>

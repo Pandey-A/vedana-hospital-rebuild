@@ -7,20 +7,21 @@ import {
   X
 } from 'lucide-react';
 import logo from '@/assets/Logo-New.png';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Navbar: React.FC = () => {
-  const [language, setLanguage] = useState('English');
+  const { language, setLanguage, t } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/", hasDropdown: false, active: true },
-    { name: "Services", href: "#", hasDropdown: true },
-    { name: "Why Us", href: "#", hasDropdown: false },
-    { name: "Our Team", href: "#", hasDropdown: false },
-    { name: "Gallery", href: "#", hasDropdown: false },
-    { name: "Success Stories", href: "#", hasDropdown: false },
-    { name: "Blog", href: "#", hasDropdown: false },
-    { name: "Contact us", href: "/contact-us", hasDropdown: false },
+    { key: "header.nav.home", href: "/", hasDropdown: false, active: true },
+    { key: "header.nav.services", href: "#", hasDropdown: true },
+    { key: "header.nav.whyUs", href: "#", hasDropdown: false },
+    { key: "header.nav.ourTeam", href: "#", hasDropdown: false },
+    { key: "header.nav.gallery", href: "#", hasDropdown: false },
+    { key: "header.nav.successStories", href: "#", hasDropdown: false },
+    { key: "header.nav.blog", href: "#", hasDropdown: false },
+    { key: "header.nav.contactUs", href: "/contact-us", hasDropdown: false },
   ];
 
   return (
@@ -33,8 +34,8 @@ const Navbar: React.FC = () => {
           <div className="bg-white p-2 rounded-full text-[#D15B8F]">
             <Phone size={18} className="md:w-5 md:h-5" fill="currentColor" />
           </div>
-          <a href="tel:+919712622288" className="text-sm md:text-md font-bold tracking-wide">
-            +91 9712622288
+          <a href="tel:9168628982" className="text-sm md:text-md font-bold tracking-wide">
+            9168628982
           </a>
         </div>
 
@@ -51,8 +52,8 @@ const Navbar: React.FC = () => {
               <MapPin size={28} className="text-[#D15B8F]" fill="none" strokeWidth={2.5} />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm md:text-[15px] font-bold leading-tight">30 Surendra Nagar</span>
-              <span className="text-xs md:text-[13px] text-white/80">Nagpur-440015</span>
+              <span className="text-sm md:text-[15px] font-bold leading-tight">{t("header.address.line1")}</span>
+              <span className="text-xs md:text-[13px] text-white/80">{t("header.address.line2")}</span>
             </div>
           </div>
 
@@ -60,18 +61,18 @@ const Navbar: React.FC = () => {
         {/* Right Side: Appointment & Language */}
         <div className="flex items-center gap-4 md:gap-6">
           <a href="#" className="text-sm md:text-lg font-bold hover:opacity-80 transition hidden sm:block">
-            Book an Appointment
+            {t("header.bookAppointment")}
           </a>
           
           <div className="relative group">
             <select 
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => setLanguage(e.target.value as "en" | "hi" | "mr")}
               className="bg-white border border-gray-400 text-black text-xs md:text-sm py-1 pl-2 pr-8 appearance-none cursor-pointer focus:outline-none min-w-[100px] md:min-w-[140px]"
             >
-              <option>English</option>
-              <option>Hindi</option>
-              <option>Marathi</option>
+              <option value="en">{t("lang.english")}</option>
+              <option value="hi">{t("lang.hindi")}</option>
+              <option value="mr">{t("lang.marathi")}</option>
             </select>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
               <ChevronDown size={16} className="text-black" />
@@ -92,7 +93,7 @@ const Navbar: React.FC = () => {
               className="h-10 md:h-16 w-auto object-contain"
             />
             <div className="flex flex-col">
-              <h1 className="text-sm md:text-xl font-bold text-gray-800 leading-tight">Vedansha Hospital</h1>
+              <h1 className="text-sm md:text-xl font-bold text-gray-800 leading-tight">{t("header.hospitalName")}</h1>
               {/* <p className="sm:text-xs md:text- text-gray-600">Hospital</p> */}
             </div>
           </div>
@@ -100,14 +101,14 @@ const Navbar: React.FC = () => {
           {/* Navigation Links (Desktop) */}
           <ul className="hidden xl:flex items-center gap-8 lg:gap-12">
             {navLinks.map((link) => (
-              <li key={link.name} className="relative group">
+              <li key={link.key} className="relative group">
                 <a 
                   href={link.href} 
                   className={`flex items-center gap-1 text-md lg:text-lg font-normal transition duration-300 ${
                     link.active ? 'text-[#D15B8F]' : 'text-gray-800 hover:text-[#D15B8F]'
                   }`}
                 >
-                  {link.name}
+                  {t(link.key)}
                   {link.hasDropdown && (
                     <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
                   )}
@@ -115,8 +116,8 @@ const Navbar: React.FC = () => {
                 
                 {link.hasDropdown && (
                   <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-gray-100 shadow-xl rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 py-2">
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-[#D15B8F]">Service Details</a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-[#D15B8F]">View All</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-[#D15B8F]">{t("header.serviceDetails")}</a>
+                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-50 hover:text-[#D15B8F]">{t("header.viewAll")}</a>
                   </div>
                 )}
               </li>
@@ -145,20 +146,20 @@ const Navbar: React.FC = () => {
               </div>
               <ul className="flex flex-col gap-6 overflow-y-auto">
                 {navLinks.map((link) => (
-                  <li key={link.name}>
+                  <li key={link.key}>
                     <a 
                       href={link.href} 
                       className={`text-xl font-medium ${link.active ? 'text-[#D15B8F]' : 'text-gray-800'}`}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      {link.name}
+                      {t(link.key)}
                     </a>
                   </li>
                 ))}
               </ul>
               <div className="mt-auto pt-6 border-t">
-                 <a href="tel:+919712622288" className="flex items-center gap-3 text-[#D15B8F] font-bold text-lg">
-                    <Phone size={20} fill="currentColor" /> +91 9712622288
+                  <a href="tel:9168628982" className="flex items-center gap-3 text-[#D15B8F] font-bold text-lg">
+                    <Phone size={20} fill="currentColor" /> 9168628982
                  </a>
               </div>
             </div>

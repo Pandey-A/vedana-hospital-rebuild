@@ -1,6 +1,7 @@
 "use client";
 import { FC, useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Star, CheckCircle2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const reviews = [
   {
@@ -36,9 +37,30 @@ const reviews = [
 ];
 
 const GoogleReviewSection: FC = () => {
+  const { t, language } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const autoScrollInterval = 5000;
+
+  const getReviewTime = (time: string) => {
+    if (language === "hi") {
+      if (time === "3 weeks ago") return "3 हफ़्ते पहले";
+      if (time === "1 month ago") return "1 महीने पहले";
+      if (time === "2 months ago") return "2 महीने पहले";
+      if (time === "3 months ago") return "3 महीने पहले";
+      if (time === "4 months ago") return "4 महीने पहले";
+    }
+
+    if (language === "mr") {
+      if (time === "3 weeks ago") return "3 आठवडे पूर्वी";
+      if (time === "1 month ago") return "1 महिन्यापूर्वी";
+      if (time === "2 months ago") return "2 महिन्यांपूर्वी";
+      if (time === "3 months ago") return "3 महिन्यांपूर्वी";
+      if (time === "4 months ago") return "4 महिन्यांपूर्वी";
+    }
+
+    return time;
+  };
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
@@ -75,68 +97,64 @@ const GoogleReviewSection: FC = () => {
   }, [currentIndex]);
 
   return (
-    // Reverted -mx-20 for desktop (lg), but removed for mobile to prevent cutoff
-    <section className="w-full bg-white lg:-mx-20 font-serif overflow-hidden lg:overflow-visible">
-      <div className="container mx-auto px-4 lg:pr-12 max-w-6xl">
-        {/* Changed to flex-col for mobile, flex-row for desktop */}
-        <div className="flex flex-col lg:flex-row items-center gap-6 relative">
+    <section className="w-full bg-white font-serif overflow-hidden">
+      <div className="container mx-auto px-3 md:px-4 lg:pr-12 max-w-6xl">
+        <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-6 relative">
           
           {/* Summary Score */}
-          <div className="flex flex-col items-center justify-center min-w-[180px] text-center">
-            <h2 className="text-2xl font-black text-black tracking-tight mb-1">EXCELLENT</h2>
+          <div className="flex flex-col items-center justify-center min-w-[130px] md:min-w-[180px] text-center pt-2">
+            <h2 className="text-xl md:text-2xl font-black text-black tracking-tight mb-1">{t("testimonials.excellent")}</h2>
             <div className="flex gap-0.5 mb-1">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={24} fill="#F6BB42" color="#F6BB42" />
+                <Star key={i} size={18} className="md:w-6 md:h-6" fill="#F6BB42" color="#F6BB42" />
               ))}
             </div>
-            <p className="text-gray-900 font-bold text-xs mb-3">
-              Based on <span className="underline">130 reviews</span>
+            <p className="text-gray-900 font-bold text-[11px] md:text-xs mb-2 md:mb-3 leading-tight">
+              {t("testimonials.basedOn")} <span className="underline">130 {t("testimonials.reviews")}</span>
             </p>
             <div className="flex items-center justify-center gap-2">
               <img 
                 src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" 
                 alt="Google" 
-                className="h-6"
+                className="h-5 md:h-6"
               />
             </div>
           </div>
 
           {/* Carousel Wrapper */}
-          <div className="relative flex-1 w-full group">
-            {/* Nav buttons hidden on mobile for better touch experience */}
+          <div className="relative min-w-0 flex-1 w-full group">
             <button 
               onClick={() => scroll("left")}
-              className="hidden lg:block absolute -left-3 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-gray-300 p-2 rounded-full shadow-md hover:bg-gray-50 transition-all"
+              className="hidden lg:block absolute -left-2 md:-left-3 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-gray-300 p-1.5 md:p-2 rounded-full shadow-md hover:bg-gray-50 transition-all"
             >
-              <ChevronLeft size={20} className="text-black" />
+              <ChevronLeft size={16} className="text-black md:w-5 md:h-5" />
             </button>
             
             <div 
               ref={scrollRef}
-              className="flex overflow-x-auto gap-2 no-scrollbar snap-x snap-mandatory pb-2 scroll-smooth"
+              className="flex overflow-x-auto gap-2 md:gap-3 no-scrollbar snap-x snap-mandatory pb-1 md:pb-2 scroll-smooth"
             >
               {reviews.map((item, idx) => (
-                // card: 85% width on mobile, 280px on desktop
-                <div key={idx} className="min-w-[85%] lg:min-w-[280px] lg:max-w-[280px] snap-center lg:snap-start flex-shrink-0">
-                  <ReviewCard {...item} />
+                <div key={idx} className="min-w-[280px] max-w-[280px] snap-start flex-shrink-0">
+                  <ReviewCard {...item} time={getReviewTime(item.time)} readMoreLabel={t("testimonials.readMore")} />
                 </div>
               ))}
             </div>
 
             <button 
               onClick={() => scroll("right")}
-              className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-gray-300 p-2 rounded-full shadow-md hover:bg-gray-50 transition-all"
+              className="hidden lg:block absolute -right-2 md:-right-3 top-1/2 -translate-y-1/2 z-10 bg-white border-2 border-gray-300 p-1.5 md:p-2 rounded-full shadow-md hover:bg-gray-50 transition-all"
             >
-              <ChevronRight size={20} className="text-black" />
+              <ChevronRight size={16} className="text-black md:w-5 md:h-5" />
             </button>
           </div>
         </div>
 
         {/* Footer Verified Badge */}
-        <div className="flex justify-center lg:justify-end mt-4">
+        <div className="flex justify-center lg:justify-end mt-3 md:mt-4">
           {/* Negative margin only on desktop to match your original design */}
           <div className="bg-[#3A6B52] text-white px-2.5 py-1 lg:-mx-56 rounded-md flex items-center gap-1.5 text-xs font-semibold shadow-sm">
-            <span>Verified by Trustindex</span>
+            <span>{t("testimonials.verified")}</span>
             <div className="w-3.5 h-3.5 rounded-full border border-white flex items-center justify-center text-[9px]">i</div>
           </div>
         </div>
@@ -150,7 +168,7 @@ const GoogleReviewSection: FC = () => {
   );
 };
 
-const ReviewCard = ({ name, time, text, image }: any) => (
+const ReviewCard = ({ name, time, text, image, readMoreLabel }: any) => (
   <div className="bg-[#F3F4F6] rounded-lg p-5 w-full h-full min-h-[200px] flex flex-col border border-transparent hover:border-gray-200 transition-all shadow-sm hover:shadow-md">
     <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-2.5">
@@ -172,7 +190,7 @@ const ReviewCard = ({ name, time, text, image }: any) => (
         <Star key={i} size={14} fill="#F6BB42" color="#F6BB42" />
       ))}
       <div className="ml-1.5 flex items-center">
-        <CheckCircle2 size={12} className="text-blue-500 fill-blue-500 text-white" />
+        <CheckCircle2 size={12} className="fill-blue-500 text-white" />
       </div>
     </div>
 
@@ -181,7 +199,7 @@ const ReviewCard = ({ name, time, text, image }: any) => (
     </p>
     
     <button className="text-gray-500 text-xs font-bold mt-auto pt-3 text-left hover:text-gray-800">
-      Read more
+      {readMoreLabel}
     </button>
   </div>
 );

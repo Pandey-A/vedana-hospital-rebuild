@@ -6,7 +6,7 @@ const FloatingCTA = () => {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
       {/* WhatsApp Button */}
       <motion.a
-        href="https://wa.me/919168628982?text=Hello, I would like to book an appointment"
+        href="https://wa.me/919766913811?text=Hello, I would like to book an appointment"
         target="_blank"
         rel="noopener noreferrer"
         initial={{ scale: 0, opacity: 0 }}
@@ -31,7 +31,7 @@ const FloatingCTA = () => {
 
       {/* Call Button */}
       <motion.a
-        href="tel:+919168628982"
+        href="tel:9168628982"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         whileHover={{ scale: 1.1 }}
