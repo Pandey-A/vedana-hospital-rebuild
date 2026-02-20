@@ -25,7 +25,7 @@ const reviews = [
   {
     name: "Priya Deshmukh",
     time: "3 months ago",
-    text: "Dr. Pandey and her team are exceptional. The entire IVF journey was handled with utmost care and professionalism. Highly recommend this hospital!",
+    text: "Dr. Sangeeta and her team are exceptional. The entire IVF journey was handled with utmost care and professionalism. Highly recommend this hospital!",
     image: "https://ui-avatars.com/api/?name=Priya+Deshmukh&background=random",
   },
   {
