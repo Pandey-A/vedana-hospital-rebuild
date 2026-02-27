@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -5,6 +6,16 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const ThankYou = () => {
   const { t } = useLanguage();
+
+  useEffect(() => {
+    const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
+
+    if (!gtag) return;
+
+    gtag("event", "conversion", {
+      send_to: "AW-823179923/V2-7CLn9__YBEJP1wogD",
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#FFF5F7] flex flex-col">
