@@ -151,14 +151,41 @@ const GoogleReviewSection: FC = () => {
         </div>
 
         {/* Footer Verified Badge */}
-        <div className="flex justify-center lg:justify-end mt-3 md:mt-4">
-          {/* Negative margin only on desktop to match your original design */}
-          <div className="bg-[#3A6B52] text-white px-2.5 py-1 lg:-mx-56 rounded-md flex items-center gap-1.5 text-xs font-semibold shadow-sm">
+        <div className="flex justify-center lg:justify-end mt-3 md:mt-4 overflow-hidden">
+          <div className="bg-[#3A6B52] text-white px-2.5 py-1 rounded-md flex items-center gap-1.5 text-xs font-semibold shadow-sm">
             <span>{t("testimonials.verified")}</span>
             <div className="w-3.5 h-3.5 rounded-full border border-white flex items-center justify-center text-[9px]">i</div>
           </div>
         </div>
+
+        {/* ── Post-review conversion strip ── trust is at its peak here */}
+        <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-[#F1D7E1] bg-[#FFF7FA] px-4 py-5 text-center md:mt-8 md:flex-row md:justify-between md:px-8 md:text-left">
+          <div>
+            <p className="text-base font-extrabold text-[#5C214E] md:text-lg">
+              Join 750+ families who trusted Vedansha Hospital.
+            </p>
+            <p className="mt-0.5 text-xs text-[#6B4855] md:text-sm">
+              Rated 4.9 / 5 on Google · Internationally trained specialists · Free first consultation
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+            <a
+              href="#hero"
+              className="rounded-xl bg-[#9B2B4E] px-5 py-2.5 text-sm font-extrabold uppercase tracking-wide text-white transition hover:bg-[#7a2040]"
+            >
+              Book Free Consultation
+            </a>
+            <a
+              href="tel:9168628982"
+              className="rounded-xl border-2 border-[#9B2B4E] px-5 py-2.5 text-sm font-extrabold uppercase tracking-wide text-[#9B2B4E] transition hover:bg-[#FDE8EF]"
+            >
+              Call Now
+            </a>
+          </div>
+        </div>
       </div>
+
+      <div className="pb-4 md:pb-8" />
 
       <style>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }

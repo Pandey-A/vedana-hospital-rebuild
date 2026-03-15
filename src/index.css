@@ -227,6 +227,15 @@ html {
   }
 }
 
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
 }
@@ -249,4 +258,9 @@ html {
 
 .animation-delay-600 {
   animation-delay: 600ms;
+}
+
+.marquee-track {
+  animation: marquee-left 28s linear infinite;
+  will-change: transform;
 }

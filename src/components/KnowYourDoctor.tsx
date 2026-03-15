@@ -87,13 +87,18 @@ const KnowYourDoctor: FC = () => {
             </div>
 
             {/* Appointment Button */}
-            <div className="flex justify-center lg:justify-start">
+            <div className="flex flex-col items-center gap-2 lg:items-start">
+              <div className="flex items-center gap-2 rounded-full bg-[#FFF3CD] px-3 py-1 text-xs font-bold text-[#856404]">
+                <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-[#E97195]"></span>
+                Only 5 consultation slots left this week
+              </div>
               <button 
                 onClick={scrollToHero}
                 className="bg-[#be59a7] hover:bg-[#4a1a3f] text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 text-sm md:text-base uppercase tracking-wider"
               >
                 {t("doctor.bookNow")}
               </button>
+              <p className="text-[11px] text-gray-500">Free consultation · No obligation</p>
             </div>
           </div>
 
