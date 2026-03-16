@@ -6,7 +6,7 @@ const TopMarquee: FC = () => {
 
   const marqueeItems = useMemo(
     () => [
-      `25+ Years Experience`,
+      `17+ Years Experience`,
       `${t("header.hospitalName")}, ${t("header.location")}`,
       t("hero.badge"),
       t("doctor.subCredential"),

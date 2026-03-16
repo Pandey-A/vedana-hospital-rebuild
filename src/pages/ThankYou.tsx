@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 
 const ThankYou = () => {
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const gtag = (window as Window & { gtag?: (...args: unknown[]) => void }).gtag;
@@ -16,6 +17,14 @@ const ThankYou = () => {
       send_to: "AW-823179923/V2-7CLn9__YBEJP1wogD",
     });
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-[#FFF5F7] flex flex-col">

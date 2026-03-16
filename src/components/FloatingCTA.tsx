@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const FloatingCTA = () => {
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-3 md:bottom-6 md:right-6">
+    <div className="fixed bottom-4 right-4 z-50 flex flex-row items-center gap-3 md:bottom-6 md:right-6">
       <motion.a
         href="#lead-offers"
         initial={{ scale: 0, opacity: 0 }}
