@@ -141,7 +141,7 @@ const YouTubeSection: FC = () => {
           </a>
         </div>
         <p className="mt-4 text-xs text-[#F9C8DC]">
-          🏥 17+ years · 750+ Five-Star Reviews · 6000+ IVF Successes
+          🏥 17+ years · 5 Star Reviews · Hundreds of Families
         </p>
       </div>
 

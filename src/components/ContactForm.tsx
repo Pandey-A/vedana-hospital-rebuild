@@ -82,7 +82,7 @@ const ContactFormMinimal: FC = () => {
   };
 
   return (
-    <section className="w-full bg-[#FDFDFD] py-12 md:py-20 font-sans">
+    <section id="contact-form" className="w-full bg-[#FDFDFD] py-12 md:py-20 font-sans">
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           

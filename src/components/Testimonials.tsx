@@ -110,7 +110,7 @@ const GoogleReviewSection: FC = () => {
               ))}
             </div>
             <p className="text-gray-900 font-bold text-[11px] md:text-xs mb-2 md:mb-3 leading-tight">
-              {t("testimonials.basedOn")} <span className="underline">134 {t("testimonials.reviews")}</span>
+              {t("testimonials.basedOn")} <span className="underline">136 {t("testimonials.reviews")}</span>
             </p>
             <div className="flex items-center justify-center gap-2">
               <img 
@@ -162,7 +162,7 @@ const GoogleReviewSection: FC = () => {
         <div className="mt-6 flex flex-col items-center gap-4 rounded-2xl border border-[#F1D7E1] bg-[#FFF7FA] px-4 py-5 text-center md:mt-8 md:flex-row md:justify-between md:px-8 md:text-left">
           <div>
             <p className="text-base font-extrabold text-[#5C214E] md:text-lg">
-              Join 750+ families who trusted Vedansha Hospital.
+              Join Hundreds of Families who trusted Vedansha Hospital.
             </p>
             <p className="mt-0.5 text-xs text-[#6B4855] md:text-sm">
               Rated 4.9 / 5 on Google · Internationally trained specialists · Free first consultation

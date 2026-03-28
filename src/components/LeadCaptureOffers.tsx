@@ -1,8 +1,16 @@
 import { FC, FormEvent, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import { useNavigate } from "react-router-dom";
 
 const DESTINATION_EMAIL = "vedanshahospitalnagpur@gmail.com";
+
+const OFFER_DOWNLOADS: Record<string, { path: string; filename: string }> = {
+  "Free IVF Starter Guide": {
+    path: "/pdfs/Vedansha_IVF_Starter_Kit.pdf",
+    filename: "Vedansha_IVF_Starter_Kit.pdf",
+  },
+};
 
 const offers = [
   {
@@ -23,12 +31,23 @@ const offers = [
 ];
 
 const LeadCaptureOffers: FC = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [selectedOffer, setSelectedOffer] = useState(offers[0].title);
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState<"success" | "error" | "">("");
+
+  const triggerPdfDownload = (path: string, filename: string) => {
+    const anchor = document.createElement("a");
+    anchor.href = path;
+    anchor.download = filename;
+    anchor.rel = "noopener";
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,12 +72,18 @@ const LeadCaptureOffers: FC = () => {
         "vjx9LFYnhaXrb7FFd"
       )
       .then(() => {
-        setStatus("Great! Our team will share this with you shortly.");
+        const selectedDownload = OFFER_DOWNLOADS[selectedOffer];
+        if (selectedDownload) {
+          triggerPdfDownload(selectedDownload.path, selectedDownload.filename);
+        }
+
+        setStatus("Great! Request submitted successfully.");
         setStatusType("success");
         setName("");
         setPhone("");
         setEmail("");
         setSelectedOffer(offers[0].title);
+        navigate("/thank-you");
       })
       .catch((error) => {
         setStatus("Failed to submit. Please try again.");
