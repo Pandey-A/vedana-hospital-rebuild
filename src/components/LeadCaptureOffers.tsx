@@ -10,6 +10,14 @@ const OFFER_DOWNLOADS: Record<string, { path: string; filename: string }> = {
     path: "/pdfs/Vedansha_IVF_Starter_Kit.pdf",
     filename: "Vedansha_IVF_Starter_Kit.pdf",
   },
+  "Fertility Diet & Lifestyle Tips": {
+    path: "/pdfs/Diet and Lifestyle_VEDANSHA HOSPITAL.pdf",
+    filename: "Diet and Lifestyle_VEDANSHA HOSPITAL.pdf",
+  },
+  "Treatment Readiness Checklist": {
+    path: "/pdfs/Treatment Readiness Checklist for IVF.pdf",
+    filename: "Treatment Readiness Checklist for IVF.pdf",
+  },
 };
 
 const offers = [

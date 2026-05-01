@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/context/LanguageContext";
+import { useFormData } from "@/context/FormDataContext";
 
 // Service Image Imports
 import img1 from "@/assets/services/PAINLESS-CHILDBIRTH.png";
@@ -29,8 +30,16 @@ const services = [
 
 const DESTINATION_EMAIL = "vedanshahospitalnagpur@gmail.com";
 
+// Service to PDF mapping
+const SERVICE_PDF_MAP: Record<string, string> = {
+  "IVF Treatment": "/pdfs/Vedansha_IVF_Starter_Kit.pdf",
+  "General Consultation": "/pdfs/Diet and Lifestyle_VEDANSHA HOSPITAL.pdf",
+  "Gynaecologist": "/pdfs/Treatment Readiness Checklist for IVF.pdf",
+};
+
 const ContactFormMinimal: FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { setPdfToDownload } = useFormData();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -39,8 +48,19 @@ const ContactFormMinimal: FC = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [status, setStatus] = useState("");
-  const [statusType, setStatusType] = useState<"success" | "error" | "">("");
+  const [statusType, setStatusType] = useState<"success" | "error" | "">("")
   const navigate = useNavigate();
+
+  const getLanguageParam = () => {
+    switch (language) {
+      case "hi":
+        return "hin";
+      case "mr":
+        return "mar";
+      default:
+        return "en";
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,6 +84,12 @@ const ContactFormMinimal: FC = () => {
         "vjx9LFYnhaXrb7FFd"
       )
       .then(() => {
+        // Store the PDF to download in context
+        const pdfPath = SERVICE_PDF_MAP[formData.service];
+        if (pdfPath) {
+          setPdfToDownload(pdfPath);
+        }
+
         setStatus(t("contact.status.success"));
         setStatusType("success");
         setIsSubmitted(true);
