@@ -110,7 +110,7 @@ const GoogleReviewSection: FC = () => {
               ))}
             </div>
             <p className="text-gray-900 font-bold text-[11px] md:text-xs mb-2 md:mb-3 leading-tight">
-              {t("testimonials.basedOn")} <span className="underline">136 {t("testimonials.reviews")}</span>
+              {t("testimonials.basedOn")} <span className="underline">133 {t("testimonials.reviews")}</span>
             </p>
             <div className="flex items-center justify-center gap-2">
               <img 
