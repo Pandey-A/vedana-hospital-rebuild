@@ -34,6 +34,8 @@ const Hero: FC = () => {
     from_phone: formData.get("from_phone"),
     service_type: formData.get("service_type"),
     date: new Date().toLocaleString(),
+    page_url: window.location.href,
+referrer: document.referrer || "Direct",
   };
 
   console.log("Sending these params:", templateParams); // Debugging: Check console to see if data is empty
