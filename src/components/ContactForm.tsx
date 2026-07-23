@@ -74,6 +74,8 @@ const ContactFormMinimal: FC = () => {
       from_phone: formData.phone,
       service_type: formData.service,
       date: new Date().toLocaleString(),
+      page_url: window.location.href,
+referrer: document.referrer || "Direct",
     };
 
     emailjs
