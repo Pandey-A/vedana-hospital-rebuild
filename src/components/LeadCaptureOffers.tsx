@@ -70,6 +70,8 @@ const LeadCaptureOffers: FC = () => {
       service_type: selectedOffer,
       source: "Lead Magnet Section",
       date: new Date().toLocaleString(),
+      page_url: window.location.href,
+referrer: document.referrer || "Direct",
     };
 
     emailjs
