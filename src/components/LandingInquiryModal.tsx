@@ -45,6 +45,8 @@ const LandingInquiryModal: FC = () => {
       ivf_interest: "Not specified",
       source: "Landing Modal",
       date: new Date().toLocaleString(),
+      page_url: window.location.href,
+referrer: document.referrer || "Direct",
     };
 
     emailjs
